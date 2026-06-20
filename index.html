@@ -23,8 +23,10 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=23" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+  <!-- aplica el tema guardado antes de pintar (evita parpadeo) -->
+  <script>try{if(localStorage.getItem('calfer-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <link rel="stylesheet" href="css/styles.css?v=24" />
 </head>
 <body>
 
@@ -50,8 +52,12 @@
       <a href="#sistemas" data-magnetic><span class="nav__num">01</span><span data-i18n="nav.systems">Sistemas</span></a>
       <a href="#capacidades" data-magnetic><span class="nav__num">02</span><span data-i18n="nav.caps">Capacidades</span></a>
       <a href="#perfil" data-magnetic><span class="nav__num">03</span><span data-i18n="nav.profile">Perfil</span></a>
-      <a href="#contacto" class="nav__cta" data-magnetic data-i18n="nav.cta">Iniciar misión</a>
+      <a href="#contacto" class="nav__cta" data-magnetic data-i18n="nav.cta">Trabajemos juntos</a>
     </nav>
+    <button class="nav__theme" id="themeToggle" aria-label="Cambiar tema / Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="currentColor"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6L19 19M19 5l-1.4 1.4M6.4 17.6L5 19" stroke-linecap="round"/></svg>
+    </button>
     <button class="nav__lang" id="langToggle" aria-label="Cambiar idioma / Switch language">
       <span class="nav__lang-opt" data-lang="es">ES</span><span class="nav__lang-sep">/</span><span class="nav__lang-opt" data-lang="en">EN</span>
     </button>
@@ -415,7 +421,7 @@
     <section class="section section--light" id="perfil">
       <canvas id="profileCanvas" class="profile__canvas"></canvas>
       <div class="section__head">
-        <span class="section__index mono" data-i18n="sec.profIndex">03 / COMANDANTE</span>
+        <span class="section__index mono" data-i18n="sec.profIndex">03 / PERFIL</span>
         <h2 class="section__title reveal">Benjamin<br /><em>Osses Bravo</em></h2>
       </div>
 
@@ -488,27 +494,30 @@
       <div class="contact__inner">
         <span class="section__index mono" data-i18n="con.index">04 / TRANSMISIÓN</span>
         <h2 class="contact__title reveal">
-          <span data-i18n="con.titlePre">¿Tienes una misión</span><br /><em data-scramble-hover data-i18n="con.titleEm">imposible?</em><span data-i18n="con.titlePost"></span>
+          <span data-i18n="con.titlePre">Construyamos algo</span> <em data-scramble-hover data-i18n="con.titleEm">juntos</em><span data-i18n="con.titlePost"></span>
         </h2>
         <p class="contact__lead reveal" data-i18n="con.lead">
           Hablemos. CALFERS se especializa en los proyectos que otros
           consideran demasiado complejos.
         </p>
-        <a href="mailto:benjamin0osses@gmail.com" class="btn btn--solid btn--big reveal" data-magnetic>
+        <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=benjamin0osses@gmail.com&amp;su=Contacto%20desde%20calfers.com" target="_blank" rel="noopener" class="btn btn--solid btn--big reveal" data-magnetic>
           <span data-i18n="con.btn">Abrir canal de comunicación</span> <span class="btn__arrow">→</span>
         </a>
         <div class="contact__channels reveal">
-          <a href="mailto:benjamin0osses@gmail.com" class="contact__channel mono" data-magnetic>
+          <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=benjamin0osses@gmail.com&amp;su=Contacto%20desde%20calfers.com" target="_blank" rel="noopener" class="contact__channel mono" data-magnetic>
             <span class="contact__channel-key">EMAIL</span>
-            benjamin0osses@gmail.com
+            <span data-i18n="con.cEmail">Enviar correo</span>
+            <span class="contact__channel-arrow">→</span>
           </a>
-          <a href="tel:+56921884650" class="contact__channel mono" data-magnetic>
-            <span class="contact__channel-key">TEL</span>
-            +56 9 2188 4650
+          <a href="https://wa.me/56921884650?text=Hola%20Benjamin%2C%20vi%20tu%20portafolio" target="_blank" rel="noopener" class="contact__channel mono" data-magnetic>
+            <span class="contact__channel-key">WHATSAPP</span>
+            <span data-i18n="con.cWa">Enviar mensaje</span>
+            <span class="contact__channel-arrow">→</span>
           </a>
           <a href="https://www.linkedin.com/in/benjamin-osses-bravo-163460388" target="_blank" rel="noopener" class="contact__channel mono" data-magnetic>
             <span class="contact__channel-key">LINKEDIN</span>
-            /benjamin-osses-bravo
+            <span data-i18n="con.cLi">Ver perfil</span>
+            <span class="contact__channel-arrow">→</span>
           </a>
         </div>
         <div class="contact__stripe"><i></i><i></i><i></i></div>
@@ -519,10 +528,10 @@
 
   <footer class="footer">
     <div class="footer__brand mono">CALFERS © 2026</div>
-    <div class="footer__credit mono">Benjamin Osses Bravo — <span data-i18n="foot.credit">Diseñado y construido a mano</span></div>
+    <div class="footer__credit mono">Benjamin Osses Bravo</div>
     <div class="footer__sys mono"><span class="blink">▮</span> SYSTEM NOMINAL</div>
   </footer>
 
-  <script src="js/main.js?v=23"></script>
+  <script src="js/main.js?v=24"></script>
 </body>
 </html>

@@ -8,6 +8,19 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 /* Estado compartido de scroll: la intro completa es una línea de tiempo (0 → 1) */
 const scrollState = { introP: 0 };
 
+/* Colores de los canvas según el tema (se leen de las variables CSS y se
+   refrescan al cambiar de modo claro/oscuro). */
+const themeColors = { neutral: "47, 81, 128", disc: "24, 35, 56" };
+function refreshThemeColors() {
+  const cs = getComputedStyle(document.documentElement);
+  const n = cs.getPropertyValue("--canvas-neutral").trim();
+  const d = cs.getPropertyValue("--canvas-disc").trim();
+  if (n) themeColors.neutral = n;
+  if (d) themeColors.disc = d;
+}
+refreshThemeColors();
+document.addEventListener("themechange", refreshThemeColors);
+
 /* ============ I18N (español / inglés) ============ */
 const LANG_KEY = "calfer-lang";
 let currentLang = (() => {
@@ -19,7 +32,7 @@ const I18N = {
     title: "CALFERS — Ingeniería en Informática · Benjamin Osses Bravo",
     desc: "CALFERS · Benjamin Osses Bravo, desarrollador Full Stack e ingeniería en informática. Sistemas con IA, visión computacional, plataformas web y experiencias digitales.",
     "nav.systems": "Sistemas", "nav.caps": "Capacidades", "nav.profile": "Perfil",
-    "nav.contact": "Contacto", "nav.cta": "Iniciar misión",
+    "nav.contact": "Contacto", "nav.cta": "Trabajemos juntos",
     "warp.jump": "NAVEGANDO A",
     "hero.tag": "DESARROLLADOR FULL STACK · ING. EN INFORMÁTICA",
     "hero.sub": "Sistemas inteligentes, visión computacional y experiencias web que operan donde otros no llegan.",
@@ -68,7 +81,7 @@ const I18N = {
     "cap3.p": "APIs REST con FastAPI, bases de datos NoSQL en MongoDB y lógica de negocio para plataformas de gestión completas y escalables.",
     "cap4.h": "Despliegue &amp; Operación",
     "cap4.p": "Sistemas que no se apagan: monitoreo, telemetría y soluciones operando 24/7 en terreno.",
-    "sec.profIndex": "03 / COMANDANTE",
+    "sec.profIndex": "03 / PERFIL",
     "prof.status": "ACTIVO",
     "prof.kRole": "ROL", "prof.vRole": "Desarrollador Full Stack",
     "prof.kEdu": "CARRERA", "prof.vEdu": "Ing. en Informática · cursando",
@@ -78,16 +91,16 @@ const I18N = {
     "prof.p2": "Mi stack principal es React, FastAPI y MongoDB. Despliego en distintos servicios cloud y servidores —Hostinger, VPS, Netlify, Render, Vercel y otros— adaptándome a lo que cada proyecto necesita. Me enfoco en soluciones funcionales, escalables y mantenibles.",
     "prof.s1": "sistemas en producción", "prof.s2": "certificaciones", "prof.s3": "rubros · industrias",
     "con.index": "04 / TRANSMISIÓN",
-    "con.titlePre": "¿Tienes una misión", "con.titleEm": "imposible?", "con.titlePost": "",
+    "con.titlePre": "Construyamos algo", "con.titleEm": "juntos", "con.titlePost": "",
     "con.lead": "Hablemos. CALFERS se especializa en los proyectos que otros consideran demasiado complejos.",
     "con.btn": "Abrir canal de comunicación",
-    "foot.credit": "Diseñado y construido a mano",
+    "con.cEmail": "Enviar correo", "con.cWa": "Enviar mensaje", "con.cLi": "Ver perfil",
   },
   en: {
     title: "CALFERS — Computer Engineering · Benjamin Osses Bravo",
     desc: "CALFERS · Benjamin Osses Bravo, Full Stack developer & computer engineering. AI systems, computer vision, web platforms and digital experiences.",
     "nav.systems": "Systems", "nav.caps": "Capabilities", "nav.profile": "Profile",
-    "nav.contact": "Contact", "nav.cta": "Start mission",
+    "nav.contact": "Contact", "nav.cta": "Let's work together",
     "warp.jump": "NAVIGATING TO",
     "hero.tag": "FULL STACK DEVELOPER · COMPUTER ENGINEERING",
     "hero.sub": "Intelligent systems, computer vision and web experiences that operate where others can't reach.",
@@ -136,7 +149,7 @@ const I18N = {
     "cap3.p": "REST APIs with FastAPI, NoSQL databases on MongoDB and business logic for complete, scalable management platforms.",
     "cap4.h": "Deployment &amp; Operation",
     "cap4.p": "Systems that never shut down: monitoring, telemetry and solutions running 24/7 in the field.",
-    "sec.profIndex": "03 / COMMANDER",
+    "sec.profIndex": "03 / PROFILE",
     "prof.status": "ACTIVE",
     "prof.kRole": "ROLE", "prof.vRole": "Full Stack Developer",
     "prof.kEdu": "DEGREE", "prof.vEdu": "Computer Engineering · in progress",
@@ -146,10 +159,10 @@ const I18N = {
     "prof.p2": "My core stack is React, FastAPI and MongoDB. I deploy across different cloud services and servers —Hostinger, VPS, Netlify, Render, Vercel and others— adapting to each project's needs. I focus on functional, scalable and maintainable solutions.",
     "prof.s1": "systems in production", "prof.s2": "certifications", "prof.s3": "industries · sectors",
     "con.index": "04 / TRANSMISSION",
-    "con.titlePre": "Got an", "con.titleEm": "impossible", "con.titlePost": " mission?",
+    "con.titlePre": "Let's build something", "con.titleEm": "together", "con.titlePost": "",
     "con.lead": "Let's talk. CALFERS specializes in the projects others consider too complex.",
     "con.btn": "Open communication channel",
-    "foot.credit": "Designed &amp; built by hand",
+    "con.cEmail": "Send email", "con.cWa": "Send message", "con.cLi": "View profile",
   },
 };
 
@@ -198,6 +211,34 @@ function t(key) {
   apply();
   // exponer para otros módulos
   window.__setLang = setLang;
+})();
+
+/* ============ TEMA (claro / oscuro) ============ */
+(function themeController() {
+  const KEY = "calfer-theme";
+  const toggle = document.getElementById("themeToggle");
+  let theme = (() => {
+    try { return localStorage.getItem(KEY) === "dark" ? "dark" : "light"; } catch (e) { return "light"; }
+  })();
+
+  function apply() {
+    document.documentElement.setAttribute("data-theme", theme);
+    // avisar a los canvas para que relean sus colores neutros
+    document.dispatchEvent(new CustomEvent("themechange", { detail: theme }));
+  }
+
+  function setTheme(t) {
+    theme = t === "dark" ? "dark" : "light";
+    try { localStorage.setItem(KEY, theme); } catch (e) {}
+    apply();
+  }
+
+  if (toggle) {
+    toggle.addEventListener("click", () => setTheme(theme === "dark" ? "light" : "dark"));
+  }
+
+  apply();
+  window.__setTheme = setTheme;
 })();
 
 /* ============ PRELOADER (boot sequence) ============ */
@@ -821,14 +862,14 @@ function runWhenVisible(canvas, loop) {
     const sNear = FOV / 150, sFar = FOV / FAR;
     for (let k = -3; k <= 3; k++) {
       const X = k * LANE_W;
-      ctx.strokeStyle = `rgba(47, 81, 128, ${0.11 * boost})`;
+      ctx.strokeStyle = `rgba(${themeColors.neutral}, ${0.11 * boost})`;
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(cx + X * sNear, cy + GROUND * sNear);
       ctx.lineTo(cx + X * sFar, cy + GROUND * sFar);
       ctx.stroke();
       // techo espejado, más tenue
-      ctx.strokeStyle = `rgba(47, 81, 128, ${0.05 * boost})`;
+      ctx.strokeStyle = `rgba(${themeColors.neutral}, ${0.05 * boost})`;
       ctx.beginPath();
       ctx.moveTo(cx + X * sNear, cy + CEIL * sNear);
       ctx.lineTo(cx + X * sFar, cy + CEIL * sFar);
@@ -843,7 +884,7 @@ function runWhenVisible(canvas, loop) {
       const s = FOV / rel;
       const a = fadeOf(rel) * 0.15 * boost;
       const y = cy + GROUND * s;
-      ctx.strokeStyle = `rgba(47, 81, 128, ${a})`;
+      ctx.strokeStyle = `rgba(${themeColors.neutral}, ${a})`;
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(cx - 3 * LANE_W * s, y);
@@ -862,7 +903,7 @@ function runWhenVisible(canvas, loop) {
       const kind = i % 3;
       const color =
         kind === 0 ? `rgba(238, 118, 35, ${a * 0.85})` :
-        kind === 1 ? `rgba(47, 81, 128, ${a * 0.3})` :
+        kind === 1 ? `rgba(${themeColors.neutral}, ${a * 0.3})` :
                      `rgba(242, 179, 45, ${a * 0.6})`;
 
       // marco completo, muy tenue
@@ -929,7 +970,7 @@ function runWhenVisible(canvas, loop) {
       const s1 = FOV / rel;
       const s2 = FOV / Math.max(rel - 50, 30);
       const a = fadeOf(rel) * 0.3 * boost;
-      ctx.strokeStyle = `rgba(47, 81, 128, ${a})`;
+      ctx.strokeStyle = `rgba(${themeColors.neutral}, ${a})`;
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(cx + d.x * s1, cy + d.y * s1);
@@ -972,7 +1013,7 @@ function runWhenVisible(canvas, loop) {
       const cx = w / 2, cy = h / 2;
       const R = Math.min(w, h) * 0.42;
 
-      ctx.strokeStyle = "rgba(47, 81, 128, 0.18)";
+      ctx.strokeStyle = `rgba(${themeColors.neutral}, 0.18)`;
       ctx.lineWidth = 1;
       for (let i = 1; i <= 4; i++) {
         ctx.beginPath();
@@ -1043,7 +1084,7 @@ function runWhenVisible(canvas, loop) {
       const lane1 = h * 0.34, lane2 = h * 0.72;
 
       // cuadrícula de monitor
-      ctx.strokeStyle = "rgba(47, 81, 128, 0.06)";
+      ctx.strokeStyle = `rgba(${themeColors.neutral}, 0.06)`;
       ctx.lineWidth = 1;
       for (let gx = 0; gx < w; gx += 26) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke(); }
       for (let gy = 0; gy < h; gy += 26) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke(); }
@@ -1078,7 +1119,7 @@ function runWhenVisible(canvas, loop) {
       ctx.textAlign = "left"; ctx.textBaseline = "middle";
       ctx.fillStyle = Math.floor(t / 55) % 2 === 0 ? "rgba(216,57,51,0.95)" : "rgba(216,57,51,0.25)";
       ctx.beginPath(); ctx.arc(16, 16, 4, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = "rgba(47,81,128,0.6)";
+      ctx.fillStyle = `rgba(${themeColors.neutral}, 0.6)`;
       ctx.font = `${Math.max(8, h * 0.038)}px "JetBrains Mono", monospace`;
       ctx.fillText("REC", 26, 16);
     });
@@ -1158,7 +1199,7 @@ function runWhenVisible(canvas, loop) {
         const x = ox + cl.c * cell;
         const y = oy + cl.r * cell;
         const m = cell * 0.08;
-        ctx.strokeStyle = "rgba(47, 81, 128, 0.12)";
+        ctx.strokeStyle = `rgba(${themeColors.neutral}, 0.12)`;
         ctx.lineWidth = 1;
         ctx.strokeRect(x + m, y + m, cell - m * 2, cell - m * 2);
         if (cl.on) {
@@ -1216,7 +1257,7 @@ function runWhenVisible(canvas, loop) {
           ctx.lineWidth = 1.5;
           ctx.beginPath(); ctx.arc(x, y, 13, 0, Math.PI * 2); ctx.stroke();
         } else {
-          ctx.fillStyle = "rgba(47, 81, 128, 0.8)";
+          ctx.fillStyle = `rgba(${themeColors.neutral}, 0.8)`;
           ctx.beginPath(); ctx.arc(x, y, 3.2, 0, Math.PI * 2); ctx.fill();
         }
       }
@@ -1396,7 +1437,7 @@ function runWhenVisible(canvas, loop) {
         }
         ctx.fillStyle = n.act > 0.3
           ? "rgba(242, 179, 45, 0.95)"
-          : n.hub ? "rgba(47, 81, 128, 0.82)" : "rgba(47, 81, 128, 0.5)";
+          : n.hub ? `rgba(${themeColors.neutral}, 0.82)` : `rgba(${themeColors.neutral}, 0.5)`;
         ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
       }
     });
@@ -1641,8 +1682,8 @@ function runWhenVisible(canvas, loop) {
         proj.push({ name: "CALFERS", sx: b.sx, sy: b.sy, sr: R });
       } else {
         const r = b.sr;
-        // disco navy para que el logo ámbar destaque sobre el fondo claro
-        ctx.fillStyle = "rgba(24, 35, 56, 0.9)";
+        // disco para que el logo ámbar destaque sobre el fondo (navy en claro, claro en oscuro)
+        ctx.fillStyle = `rgba(${themeColors.disc}, 0.9)`;
         ctx.beginPath(); ctx.arc(b.sx, b.sy, r * 1.32, 0, Math.PI * 2); ctx.fill();
         if (selected === b.name) {
           ctx.strokeStyle = "rgba(242, 179, 45, 0.9)"; ctx.lineWidth = 2;
@@ -1660,7 +1701,7 @@ function runWhenVisible(canvas, loop) {
           ctx.fillText(b.name === "REST APIs" ? "{ }" : b.name[0], b.sx, b.sy);
         }
         if (b.sr > 5 && dive < 0.72 && focusP < 0.5) {
-          ctx.fillStyle = `rgba(47, 81, 128, ${clamp(0.4 + b.sr / 30, 0, 0.95)})`;
+          ctx.fillStyle = `rgba(${themeColors.neutral}, ${clamp(0.4 + b.sr / 30, 0, 0.95)})`;
           ctx.font = `${Math.max(9, b.sr * 0.7)}px "JetBrains Mono", monospace`;
           ctx.textAlign = "center"; ctx.textBaseline = "top";
           ctx.fillText(b.name, b.sx, b.sy + r * 1.35 + 4);
@@ -1679,9 +1720,6 @@ function runWhenVisible(canvas, loop) {
   ["capsCanvas", "contactCanvas", "profileCanvas"].forEach((id) => {
     const canvas = document.getElementById(id);
     if (!canvas) return;
-    // todas las secciones ahora son claras → puntos azul marino
-    const light = true;
-    const baseDot = "31, 58, 99";
     let { ctx, w, h } = fitCanvas(canvas);
     let dots = [];
     function build() {
@@ -1705,7 +1743,7 @@ function runWhenVisible(canvas, loop) {
         const tw = 0.35 + Math.abs(Math.sin(d.a)) * 0.5;
         ctx.fillStyle = Math.random() < 0.002
           ? "rgba(238, 118, 35, 0.9)"
-          : `rgba(${baseDot}, ${tw * (light ? 0.4 : 0.5)})`;
+          : `rgba(${themeColors.neutral}, ${tw * 0.4})`;
         ctx.fillRect(d.x, d.y, d.s, d.s);
       }
     });
