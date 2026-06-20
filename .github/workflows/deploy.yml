@@ -20,10 +20,8 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           # protocol: ftps  # si tu hosting exige FTP seguro, descomenta esta línea
-          # Carpeta del servidor donde vive el sitio.
-          # Si tu cuenta FTP entra a la carpeta personal: usa  public_html/
-          # Si tu cuenta FTP entra directo a public_html: cambia a  ./
-          server-dir: public_html/
+          # La cuenta FTP "deploy" entra directo a public_html → desplegamos en la raíz:
+          server-dir: ./
           # No subir estos (son del proyecto, no del sitio):
           exclude: |
             **/.git*
