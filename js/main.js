@@ -821,14 +821,14 @@ function runWhenVisible(canvas, loop) {
     const sNear = FOV / 150, sFar = FOV / FAR;
     for (let k = -3; k <= 3; k++) {
       const X = k * LANE_W;
-      ctx.strokeStyle = `rgba(242, 239, 233, ${0.11 * boost})`;
+      ctx.strokeStyle = `rgba(47, 81, 128, ${0.11 * boost})`;
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(cx + X * sNear, cy + GROUND * sNear);
       ctx.lineTo(cx + X * sFar, cy + GROUND * sFar);
       ctx.stroke();
       // techo espejado, más tenue
-      ctx.strokeStyle = `rgba(242, 239, 233, ${0.05 * boost})`;
+      ctx.strokeStyle = `rgba(47, 81, 128, ${0.05 * boost})`;
       ctx.beginPath();
       ctx.moveTo(cx + X * sNear, cy + CEIL * sNear);
       ctx.lineTo(cx + X * sFar, cy + CEIL * sFar);
@@ -843,7 +843,7 @@ function runWhenVisible(canvas, loop) {
       const s = FOV / rel;
       const a = fadeOf(rel) * 0.15 * boost;
       const y = cy + GROUND * s;
-      ctx.strokeStyle = `rgba(242, 239, 233, ${a})`;
+      ctx.strokeStyle = `rgba(47, 81, 128, ${a})`;
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(cx - 3 * LANE_W * s, y);
@@ -862,7 +862,7 @@ function runWhenVisible(canvas, loop) {
       const kind = i % 3;
       const color =
         kind === 0 ? `rgba(238, 118, 35, ${a * 0.85})` :
-        kind === 1 ? `rgba(242, 239, 233, ${a * 0.3})` :
+        kind === 1 ? `rgba(47, 81, 128, ${a * 0.3})` :
                      `rgba(242, 179, 45, ${a * 0.6})`;
 
       // marco completo, muy tenue
@@ -929,7 +929,7 @@ function runWhenVisible(canvas, loop) {
       const s1 = FOV / rel;
       const s2 = FOV / Math.max(rel - 50, 30);
       const a = fadeOf(rel) * 0.3 * boost;
-      ctx.strokeStyle = `rgba(242, 239, 233, ${a})`;
+      ctx.strokeStyle = `rgba(47, 81, 128, ${a})`;
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(cx + d.x * s1, cy + d.y * s1);
@@ -972,7 +972,7 @@ function runWhenVisible(canvas, loop) {
       const cx = w / 2, cy = h / 2;
       const R = Math.min(w, h) * 0.42;
 
-      ctx.strokeStyle = "rgba(242, 239, 233, 0.18)";
+      ctx.strokeStyle = "rgba(47, 81, 128, 0.18)";
       ctx.lineWidth = 1;
       for (let i = 1; i <= 4; i++) {
         ctx.beginPath();
@@ -1043,7 +1043,7 @@ function runWhenVisible(canvas, loop) {
       const lane1 = h * 0.34, lane2 = h * 0.72;
 
       // cuadrícula de monitor
-      ctx.strokeStyle = "rgba(242, 239, 233, 0.06)";
+      ctx.strokeStyle = "rgba(47, 81, 128, 0.06)";
       ctx.lineWidth = 1;
       for (let gx = 0; gx < w; gx += 26) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke(); }
       for (let gy = 0; gy < h; gy += 26) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke(); }
@@ -1078,7 +1078,7 @@ function runWhenVisible(canvas, loop) {
       ctx.textAlign = "left"; ctx.textBaseline = "middle";
       ctx.fillStyle = Math.floor(t / 55) % 2 === 0 ? "rgba(216,57,51,0.95)" : "rgba(216,57,51,0.25)";
       ctx.beginPath(); ctx.arc(16, 16, 4, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = "rgba(242,239,233,0.5)";
+      ctx.fillStyle = "rgba(47,81,128,0.6)";
       ctx.font = `${Math.max(8, h * 0.038)}px "JetBrains Mono", monospace`;
       ctx.fillText("REC", 26, 16);
     });
@@ -1158,7 +1158,7 @@ function runWhenVisible(canvas, loop) {
         const x = ox + cl.c * cell;
         const y = oy + cl.r * cell;
         const m = cell * 0.08;
-        ctx.strokeStyle = "rgba(242, 239, 233, 0.12)";
+        ctx.strokeStyle = "rgba(47, 81, 128, 0.12)";
         ctx.lineWidth = 1;
         ctx.strokeRect(x + m, y + m, cell - m * 2, cell - m * 2);
         if (cl.on) {
@@ -1216,7 +1216,7 @@ function runWhenVisible(canvas, loop) {
           ctx.lineWidth = 1.5;
           ctx.beginPath(); ctx.arc(x, y, 13, 0, Math.PI * 2); ctx.stroke();
         } else {
-          ctx.fillStyle = "rgba(242, 239, 233, 0.8)";
+          ctx.fillStyle = "rgba(47, 81, 128, 0.8)";
           ctx.beginPath(); ctx.arc(x, y, 3.2, 0, Math.PI * 2); ctx.fill();
         }
       }
@@ -1255,13 +1255,11 @@ function runWhenVisible(canvas, loop) {
 
       // núcleo de calor en la base
       const core = ctx.createRadialGradient(w / 2, h, 6, w / 2, h, h * 0.85);
-      core.addColorStop(0, `rgba(255, 180, 90, ${0.32 + 0.06 * Math.sin(t * 3)})`);
-      core.addColorStop(0.35, "rgba(238, 118, 35, 0.14)");
+      core.addColorStop(0, `rgba(238, 118, 35, ${0.30 + 0.06 * Math.sin(t * 3)})`);
+      core.addColorStop(0.35, "rgba(216, 57, 51, 0.14)");
       core.addColorStop(1, "rgba(216, 57, 51, 0)");
       ctx.fillStyle = core;
       ctx.fillRect(0, 0, w, h);
-
-      ctx.globalCompositeOperation = "lighter";
 
       // anillos de calor que se expanden desde la base
       ringT++;
@@ -1286,7 +1284,7 @@ function runWhenVisible(canvas, loop) {
         const py = p.y * h;
         const k = 1 - p.life / p.max;
         // de blanco-cálido a naranja a rojo a medida que sube y se enfría
-        const col = rise < 0.3 ? "255, 230, 170" : rise < 0.6 ? "242, 179, 45" : rise < 0.82 ? "238, 118, 35" : "216, 57, 51";
+        const col = rise < 0.3 ? "230, 120, 40" : rise < 0.6 ? "238, 118, 35" : rise < 0.82 ? "216, 57, 51" : "168, 38, 50";
         const rad = p.r * (0.5 + k * 0.7);
         const g = ctx.createRadialGradient(px, py, 0, px, py, rad * 3);
         g.addColorStop(0, `rgba(${col}, ${k * 0.95})`);
@@ -1294,7 +1292,6 @@ function runWhenVisible(canvas, loop) {
         ctx.fillStyle = g;
         ctx.beginPath(); ctx.arc(px, py, rad * 3, 0, Math.PI * 2); ctx.fill();
       }
-      ctx.globalCompositeOperation = "source-over";
     });
   }
 
@@ -1399,7 +1396,7 @@ function runWhenVisible(canvas, loop) {
         }
         ctx.fillStyle = n.act > 0.3
           ? "rgba(242, 179, 45, 0.95)"
-          : n.hub ? "rgba(242, 239, 233, 0.82)" : "rgba(242, 239, 233, 0.5)";
+          : n.hub ? "rgba(47, 81, 128, 0.82)" : "rgba(47, 81, 128, 0.5)";
         ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
       }
     });
@@ -1644,9 +1641,9 @@ function runWhenVisible(canvas, loop) {
         proj.push({ name: "CALFERS", sx: b.sx, sy: b.sy, sr: R });
       } else {
         const r = b.sr;
-        // disco de contraste para que el logo destaque sobre el fondo
-        ctx.fillStyle = "rgba(20, 21, 25, 0.55)";
-        ctx.beginPath(); ctx.arc(b.sx, b.sy, r * 1.25, 0, Math.PI * 2); ctx.fill();
+        // disco navy para que el logo ámbar destaque sobre el fondo claro
+        ctx.fillStyle = "rgba(24, 35, 56, 0.9)";
+        ctx.beginPath(); ctx.arc(b.sx, b.sy, r * 1.32, 0, Math.PI * 2); ctx.fill();
         if (selected === b.name) {
           ctx.strokeStyle = "rgba(242, 179, 45, 0.9)"; ctx.lineWidth = 2;
           ctx.beginPath(); ctx.arc(b.sx, b.sy, r * 1.5, 0, Math.PI * 2); ctx.stroke();
@@ -1663,7 +1660,7 @@ function runWhenVisible(canvas, loop) {
           ctx.fillText(b.name === "REST APIs" ? "{ }" : b.name[0], b.sx, b.sy);
         }
         if (b.sr > 5 && dive < 0.72 && focusP < 0.5) {
-          ctx.fillStyle = `rgba(242, 239, 233, ${clamp(0.4 + b.sr / 30, 0, 0.95)})`;
+          ctx.fillStyle = `rgba(47, 81, 128, ${clamp(0.4 + b.sr / 30, 0, 0.95)})`;
           ctx.font = `${Math.max(9, b.sr * 0.7)}px "JetBrains Mono", monospace`;
           ctx.textAlign = "center"; ctx.textBaseline = "top";
           ctx.fillText(b.name, b.sx, b.sy + r * 1.35 + 4);
@@ -1682,9 +1679,9 @@ function runWhenVisible(canvas, loop) {
   ["capsCanvas", "contactCanvas", "profileCanvas"].forEach((id) => {
     const canvas = document.getElementById(id);
     if (!canvas) return;
-    // secciones claras → puntos azul marino; contacto (oscuro) → claros
-    const light = id === "capsCanvas" || id === "profileCanvas";
-    const baseDot = light ? "31, 58, 99" : "242, 239, 233";
+    // todas las secciones ahora son claras → puntos azul marino
+    const light = true;
+    const baseDot = "31, 58, 99";
     let { ctx, w, h } = fitCanvas(canvas);
     let dots = [];
     function build() {
