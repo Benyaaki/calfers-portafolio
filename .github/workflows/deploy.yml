@@ -1,0 +1,34 @@
+name: Desplegar a HostGator
+
+# Cada vez que subes cambios a la rama main, se publican solos en calfers.com
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:   # también permite lanzarlo a mano desde GitHub
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Subir por FTP a public_html
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # protocol: ftps  # si tu hosting exige FTP seguro, descomenta esta línea
+          # Carpeta del servidor donde vive el sitio.
+          # Si tu cuenta FTP entra a la carpeta personal: usa  public_html/
+          # Si tu cuenta FTP entra directo a public_html: cambia a  ./
+          server-dir: public_html/
+          # No subir estos (son del proyecto, no del sitio):
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/.claude/**
+            **/README.md
+            **/*.zip

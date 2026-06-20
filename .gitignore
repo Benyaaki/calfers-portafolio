@@ -1,0 +1,9 @@
+# Configuración local de herramientas (no se publica)
+.claude/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Paquetes de despliegue generados
+*.zip

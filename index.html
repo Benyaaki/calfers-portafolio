@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="title">CALFERS — Ingeniería en Informática · Benjamin Osses Bravo</title>
+  <meta name="description" data-i18n-meta="desc" content="CALFERS · Benjamin Osses Bravo, desarrollador Full Stack e ingeniería en informática. Sistemas con IA, visión computacional, plataformas web y experiencias digitales." />
+
+  <!-- favicon -->
+  <link rel="icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="logo.png" />
+
+  <!-- vista previa al compartir (LinkedIn / WhatsApp / etc.) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://calfers.com/" />
+  <meta property="og:title" content="CALFERS — Benjamin Osses Bravo · Desarrollador Full Stack" />
+  <meta property="og:description" content="Portafolio de Benjamin Osses Bravo: sistemas con IA, visión computacional y plataformas web. Ingeniería en Informática." />
+  <meta property="og:image" content="https://calfers.com/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CALFERS — Benjamin Osses Bravo" />
+  <meta name="twitter:description" content="Portafolio Full Stack: IA, visión computacional y plataformas web." />
+  <meta name="twitter:image" content="https://calfers.com/logo.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=22" />
+</head>
+<body>
+
+  <!-- ============ CURSOR ============ -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ============ WARP (transición inmersiva entre secciones) ============ -->
+  <div class="warp" id="warp" aria-hidden="true">
+    <canvas class="warp__canvas" id="warpCanvas"></canvas>
+    <div class="warp__hud mono">
+      <span class="warp__jump" data-i18n="warp.jump">NAVEGANDO A</span>
+      <span class="warp__target" id="warpTarget">———</span>
+    </div>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <a class="nav__logo" href="#inicio" data-magnetic>
+      CALFERS<span class="nav__logo-dot"></span>
+    </a>
+    <nav class="nav__links">
+      <a href="#sistemas" data-magnetic><span class="nav__num">01</span><span data-i18n="nav.systems">Sistemas</span></a>
+      <a href="#capacidades" data-magnetic><span class="nav__num">02</span><span data-i18n="nav.caps">Capacidades</span></a>
+      <a href="#perfil" data-magnetic><span class="nav__num">03</span><span data-i18n="nav.profile">Perfil</span></a>
+      <a href="#contacto" class="nav__cta" data-magnetic data-i18n="nav.cta">Iniciar misión</a>
+    </nav>
+    <button class="nav__lang" id="langToggle" aria-label="Cambiar idioma / Switch language">
+      <span class="nav__lang-opt" data-lang="es">ES</span><span class="nav__lang-sep">/</span><span class="nav__lang-opt" data-lang="en">EN</span>
+    </button>
+    <button class="nav__burger" id="burger" aria-label="Menú">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <!-- menú móvil -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#sistemas" data-i18n="nav.systems">Sistemas</a>
+    <a href="#capacidades" data-i18n="nav.caps">Capacidades</a>
+    <a href="#perfil" data-i18n="nav.profile">Perfil</a>
+    <a href="#contacto" data-i18n="nav.contact">Contacto</a>
+  </div>
+
+  <main>
+
+    <!-- ============ INTRO INMERSIVA ============ -->
+    <div class="hero-wrap">
+    <section class="hero" id="inicio">
+      <canvas id="heroCanvas" class="hero__canvas"></canvas>
+
+      <div class="hero__hud hero__hud--tl mono">SYS.CALFERS // ONLINE</div>
+      <div class="hero__hud hero__hud--tr mono" id="hudClock">00:00:00</div>
+      <div class="hero__hud hero__hud--bl mono">LAT -34.17 · LON -70.74</div>
+      <div class="hero__hud hero__hud--br mono">BUILD v2026.06</div>
+
+      <div class="hero__content">
+        <div class="hero__tag mono reveal">
+          <span class="blink">▮</span> <span data-i18n="hero.tag">DESARROLLADOR FULL STACK · ING. EN INFORMÁTICA</span>
+        </div>
+        <h1 class="hero__title" aria-label="CALFERS">
+          <span class="hero__title-line"><span data-scramble>CALFERS</span></span>
+        </h1>
+        <div class="hero__stripe"><i></i><i></i><i></i></div>
+        <p class="hero__sub reveal" data-i18n="hero.sub">
+          Sistemas inteligentes, visión computacional y experiencias web
+          que operan donde otros no llegan.
+        </p>
+        <div class="hero__actions reveal">
+          <a href="#sistemas" class="btn btn--solid" data-magnetic>
+            <span data-i18n="hero.btn1">Explorar sistemas</span> <span class="btn__arrow">→</span>
+          </a>
+          <a href="#contacto" class="btn btn--ghost" data-magnetic data-i18n="hero.btn2">
+            Contacto directo
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__scroll mono">
+        <span data-i18n="hero.scroll">SCROLL PARA SUMERGIRTE</span>
+        <div class="hero__scroll-line"></div>
+      </div>
+
+      <!-- mensajes del descenso: viven en el mismo plano, sin cortes -->
+      <div class="dive__msg" data-dive-from="0.30" data-dive-to="0.50">
+        <span class="dive__label mono" data-i18n="dive.l1">SECUENCIA 01 // DESCENSO</span>
+        <h2 data-i18n="dive.h1">Iniciando<br />inmersión</h2>
+        <p data-i18n="dive.p1">Estás entrando al núcleo de CALFERS.</p>
+      </div>
+
+      <div class="dive__msg" data-dive-from="0.54" data-dive-to="0.74">
+        <span class="dive__label mono" data-i18n="dive.l2">SECUENCIA 02 // CAPAS</span>
+        <h2 data-i18n="dive.h2">Inteligencia<br />en cada nivel</h2>
+        <p data-i18n="dive.p2">IA, visión computacional y datos en tiempo real.</p>
+      </div>
+
+      <div class="dive__msg" data-dive-from="0.78" data-dive-to="0.95">
+        <span class="dive__label mono" data-i18n="dive.l3">SECUENCIA 03 // LLEGADA</span>
+        <h2 data-i18n="dive.h3">Sistemas<br />vivos</h2>
+        <p data-i18n="dive.p3">Operando 24/7 donde otros no llegan.</p>
+      </div>
+
+      <div class="dive__hud dive__hud--bl mono"><span data-i18n="hero.depth">PROFUNDIDAD</span> <span id="diveDepth">0000</span> M</div>
+      <div class="dive__hud dive__hud--br mono"><span data-i18n="hero.integrity">INTEGRIDAD</span> <span class="dive__ok">100%</span></div>
+      <div class="dive__vignette"></div>
+    </section>
+    </div>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span data-i18n="mq.text">INTELIGENCIA ARTIFICIAL ✦ VISIÓN COMPUTACIONAL ✦ SISTEMAS DE GESTIÓN ✦ EXPERIENCIAS WEB ✦ TELEMETRÍA ✦ AUTOMATIZACIÓN ✦&nbsp;</span>
+        <span data-i18n="mq.text">INTELIGENCIA ARTIFICIAL ✦ VISIÓN COMPUTACIONAL ✦ SISTEMAS DE GESTIÓN ✦ EXPERIENCIAS WEB ✦ TELEMETRÍA ✦ AUTOMATIZACIÓN ✦&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- ============ SISTEMAS / PROYECTOS (teatro inmersivo) ============ -->
+    <section class="section--dark theater" id="sistemas">
+      <div class="theater__head">
+        <span class="section__index mono" data-i18n="sec.sysIndex">01 / MISIONES</span>
+        <h2 class="section__title section__title--light reveal" data-i18n="sec.sysTitle">Sistemas<br /><em>desplegados</em></h2>
+        <p class="section__lead section__lead--light reveal" data-i18n="sec.sysLead">
+          Cada proyecto es una misión: un problema real, un entorno hostil
+          y una solución que tiene que funcionar todos los días.
+        </p>
+      </div>
+
+      <!-- ESCENA 1: IA MINERÍA -->
+      <div class="scene" data-scene>
+        <div class="scene__stage">
+          <div class="scene__viz" data-vizwrap>
+            <canvas class="scene__canvas" data-viz="radar"></canvas>
+            <div class="scene__scan"></div>
+          </div>
+          <h3 class="scene__word" data-word aria-hidden="true"><span data-i18n="kw.1">MINERÍA</span></h3>
+          <div class="scene__content">
+            <span class="scene__tag mono" data-layer>VISION-AI · MSN-001</span>
+            <h3 class="scene__name" data-layer data-i18n="p1.name">Detección de fatiga<br />y distracción con IA</h3>
+            <p class="scene__desc" data-layer data-i18n="p1.desc">
+              Sistema de visión computacional que monitorea en tiempo real a
+              operadores de camiones y maquinaria pesada en faenas mineras.
+              Detecta somnolencia, microsueños, malos hábitos y desconcentración
+              mediante cámaras e inteligencia artificial, emitiendo alertas
+              antes de que ocurra el accidente.
+            </p>
+            <ul class="scene__chips mono" data-layer>
+              <li>Computer Vision</li><li>Deep Learning</li><li data-i18n="p1.t3">Tiempo real</li><li data-i18n="p1.t4">Minería</li>
+            </ul>
+          </div>
+          <div class="scene__metrics" data-layer>
+            <div><strong data-counter="24">0</strong><span data-i18n="p1.m1">/7 monitoreo</span></div>
+            <div><strong data-counter="98">0</strong><span data-i18n="p1.m2">% precisión objetivo</span></div>
+            <div><strong>&lt;1s</strong><span data-i18n="p1.m3">latencia de alerta</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESCENA 2: VETERINARIA CALFERS -->
+      <div class="scene scene--right" data-scene>
+        <div class="scene__stage">
+          <div class="scene__viz" data-vizwrap>
+            <canvas class="scene__canvas" data-viz="pulse"></canvas>
+            <div class="scene__scan"></div>
+          </div>
+          <h3 class="scene__word" data-word aria-hidden="true"><span data-i18n="kw.2">CLÍNICA</span></h3>
+          <div class="scene__content">
+            <span class="scene__tag mono" data-layer>MED-SYS · MSN-002</span>
+            <h3 class="scene__name" data-layer data-i18n="p2.name">Sistema de gestión<br />veterinaria · Calfers</h3>
+            <p class="scene__desc" data-layer data-i18n="p2.desc">
+              Plataforma web integral para clínicas veterinarias: punto de venta
+              (POS), control de inventario multi-sucursal, fichas clínicas y
+              gestión de pacientes, registro de servicios, caja diaria y reportes
+              con estadísticas. Centraliza toda la operación que antes vivía
+              dispersa en planillas.
+            </p>
+            <ul class="scene__chips mono" data-layer>
+              <li>React</li><li>FastAPI</li><li>MongoDB</li><li>Tailwind</li>
+            </ul>
+          </div>
+          <div class="scene__metrics" data-layer>
+            <div><strong data-counter="6">0</strong><span data-i18n="p2.m1">módulos integrados</span></div>
+            <div><strong data-counter="100">0</strong><span data-i18n="p2.m2">% operación digital</span></div>
+            <div><strong>POS</strong><span data-i18n="p2.m3">+ inventario + caja</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESCENA 3: CALENDARIO ESCOLAR REDLAND -->
+      <div class="scene" data-scene>
+        <div class="scene__stage">
+          <div class="scene__viz" data-vizwrap>
+            <canvas class="scene__canvas" data-viz="grid"></canvas>
+            <div class="scene__scan"></div>
+          </div>
+          <h3 class="scene__word" data-word aria-hidden="true"><span data-i18n="kw.3">ESCUELA</span></h3>
+          <div class="scene__content">
+            <span class="scene__tag mono" data-layer>EDU-SYS · MSN-003</span>
+            <h3 class="scene__name" data-layer data-i18n="p3.name">Calendario escolar<br />Redland School</h3>
+            <p class="scene__desc" data-layer data-i18n="p3.desc">
+              Plataforma de gestión centralizada de actividades académicas y
+              evaluaciones, con acceso segmentado para administración, docentes y
+              estudiantes en tiempo real. Reemplazó correos y documentos aislados
+              por un único sistema con trazabilidad. Implementado en una
+              institución educativa real.
+            </p>
+            <ul class="scene__chips mono" data-layer>
+              <li>React</li><li>APIs REST</li><li>Responsive</li><li data-i18n="p3.t4">Multi-rol</li>
+            </ul>
+          </div>
+          <div class="scene__metrics" data-layer>
+            <div><strong data-counter="3">0</strong><span data-i18n="p3.m1">tipos de usuario</span></div>
+            <div><strong data-counter="4">0</strong><span data-i18n="p3.m2">semanas por vista</span></div>
+            <div><strong>1</strong><span data-i18n="p3.m3">fuente de verdad</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESCENA 4: DENTISTATION -->
+      <div class="scene scene--right" data-scene>
+        <div class="scene__stage">
+          <div class="scene__viz" data-vizwrap>
+            <canvas class="scene__canvas" data-viz="dental"></canvas>
+            <div class="scene__scan"></div>
+          </div>
+          <h3 class="scene__word" data-word aria-hidden="true"><span data-i18n="kw.4">DENTAL</span></h3>
+          <div class="scene__content">
+            <span class="scene__tag mono" data-layer>EDU-NET · MSN-004</span>
+            <h3 class="scene__name" data-layer data-i18n="p4.name">Dentistation<br />plataforma educativa</h3>
+            <p class="scene__desc" data-layer data-i18n="p4.desc">
+              Plataforma que conecta estudiantes de odontología con pacientes que
+              necesitan tratamientos a precios justos, bajo supervisión académica.
+              Incluye paneles por tipo de usuario, planes de suscripción y gestión
+              de contenido educativo en salud dental.
+            </p>
+            <ul class="scene__chips mono" data-layer>
+              <li>React</li><li>APIs</li><li data-i18n="p4.t3">Suscripciones</li><li>UX/UI</li>
+            </ul>
+          </div>
+          <div class="scene__metrics" data-layer>
+            <div><strong data-counter="800">0</strong><span data-i18n="p4.m1">+ tratamientos</span></div>
+            <div><strong data-counter="4">0</strong><span data-i18n="p4.m2">planes de acceso</span></div>
+            <div><strong>2</strong><span data-i18n="p4.m3">perfiles conectados</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESCENA 5: PARRILLAS DEL GANCHO -->
+      <div class="scene" data-scene>
+        <div class="scene__stage">
+          <div class="scene__viz" data-vizwrap>
+            <canvas class="scene__canvas" data-viz="embers"></canvas>
+            <div class="scene__scan"></div>
+          </div>
+          <h3 class="scene__word" data-word aria-hidden="true"><span data-i18n="kw.5">FUEGO</span></h3>
+          <div class="scene__content">
+            <span class="scene__tag mono" data-layer>E-COMMERCE · MSN-005</span>
+            <h3 class="scene__name" data-layer data-i18n="p5.name">Parrillas del Gancho<br />e-commerce</h3>
+            <p class="scene__desc" data-layer data-i18n="p5.desc">
+              Digitalización de un negocio tradicional de parrillas: catálogo de
+              productos, fichas detalladas, panel administrativo y diseño orientado
+              a conversión. Una vitrina online optimizada en rendimiento que lleva
+              el oficio del fuego a internet.
+            </p>
+            <ul class="scene__chips mono" data-layer>
+              <li>React</li><li>Frontend</li><li data-i18n="p5.t3">Catálogo</li><li data-i18n="p5.t4">Conversión</li>
+            </ul>
+          </div>
+          <div class="scene__metrics" data-layer>
+            <div><strong data-counter="500">0</strong><span data-i18n="p5.m1">+ parrillas fabricadas</span></div>
+            <div><strong data-counter="600">0</strong><span data-i18n="p5.m2">+ clientes</span></div>
+            <div><strong data-counter="500">0</strong><span data-i18n="p5.m3">+ pedidos entregados</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESCENA 6: IA ASISTENTE -->
+      <div class="scene scene--right" data-scene>
+        <div class="scene__stage">
+          <div class="scene__viz" data-vizwrap>
+            <canvas class="scene__canvas" data-viz="voice"></canvas>
+            <div class="scene__scan"></div>
+          </div>
+          <h3 class="scene__word" data-word aria-hidden="true"><span data-i18n="kw.6">IA</span></h3>
+          <div class="scene__content">
+            <span class="scene__tag mono" data-layer>LAB · IA · MSN-006</span>
+            <h3 class="scene__name" data-layer data-i18n="p6.name">Asistente de IA<br />proyecto personal</h3>
+            <p class="scene__desc" data-layer data-i18n="p6.desc">
+              Asistente inteligente para automatizar tareas mediante reconocimiento
+              de voz y procesamiento de lenguaje natural, con integración local de
+              herramientas de IA. Un laboratorio para explorar aplicaciones
+              prácticas de modelos de lenguaje en la asistencia personal.
+            </p>
+            <ul class="scene__chips mono" data-layer>
+              <li>LLM</li><li data-i18n="p6.t2">Voz</li><li>NLP</li><li data-i18n="p6.t4">Automatización</li>
+            </ul>
+          </div>
+          <div class="scene__metrics" data-layer>
+            <div><strong>LLM</strong><span data-i18n="p6.m1">+ voz local</span></div>
+            <div><strong data-counter="100">0</strong><span data-i18n="p6.m2">% experimental</span></div>
+            <div><strong>I+D</strong><span data-i18n="p6.m3">investigación propia</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- franja divisoria (tapa la línea entre secciones) -->
+    <div class="marquee marquee--alt" aria-hidden="true">
+      <div class="marquee__track">
+        <span data-i18n="mq.text">INTELIGENCIA ARTIFICIAL ✦ VISIÓN COMPUTACIONAL ✦ SISTEMAS DE GESTIÓN ✦ EXPERIENCIAS WEB ✦ TELEMETRÍA ✦ AUTOMATIZACIÓN ✦&nbsp;</span>
+        <span data-i18n="mq.text">INTELIGENCIA ARTIFICIAL ✦ VISIÓN COMPUTACIONAL ✦ SISTEMAS DE GESTIÓN ✦ EXPERIENCIAS WEB ✦ TELEMETRÍA ✦ AUTOMATIZACIÓN ✦&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- ============ CAPACIDADES ============ -->
+    <section class="section section--light caps-section" id="capacidades">
+      <canvas id="capsCanvas" class="caps__canvas"></canvas>
+      <div class="section__head">
+        <span class="section__index mono" data-i18n="sec.capsIndex">02 / ARSENAL</span>
+        <h2 class="section__title reveal" data-i18n="sec.capsTitle">Capacidades<br /><em>técnicas</em></h2>
+      </div>
+
+      <div class="caps">
+        <div class="cap reveal" data-tilt>
+          <div class="cap__icon mono">[AI]</div>
+          <h3 data-i18n="cap1.h">Inteligencia Artificial</h3>
+          <p data-i18n="cap1.p">Modelos de visión computacional, detección en tiempo real y análisis de comportamiento aplicados a entornos industriales críticos.</p>
+          <div class="cap__bar"><span style="--w:92%"></span></div>
+        </div>
+        <div class="cap reveal" data-tilt>
+          <div class="cap__icon mono">[FE]</div>
+          <h3 data-i18n="cap2.h">Frontend &amp; Experiencia</h3>
+          <p data-i18n="cap2.p">Interfaces modernas con React y Tailwind CSS: responsivas, accesibles y rápidas, con micro-interacciones que se sienten vivas.</p>
+          <div class="cap__bar"><span style="--w:95%"></span></div>
+        </div>
+        <div class="cap reveal" data-tilt>
+          <div class="cap__icon mono">[BE]</div>
+          <h3 data-i18n="cap3.h">Backend &amp; Sistemas</h3>
+          <p data-i18n="cap3.p">APIs REST con FastAPI, bases de datos NoSQL en MongoDB y lógica de negocio para plataformas de gestión completas y escalables.</p>
+          <div class="cap__bar"><span style="--w:90%"></span></div>
+        </div>
+        <div class="cap reveal" data-tilt>
+          <div class="cap__icon mono">[OPS]</div>
+          <h3 data-i18n="cap4.h">Despliegue &amp; Operación</h3>
+          <p data-i18n="cap4.p">Sistemas que no se apagan: monitoreo, telemetría y soluciones operando 24/7 en terreno.</p>
+          <div class="cap__bar"><span style="--w:88%"></span></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- franja divisoria -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span data-i18n="mq.text">INTELIGENCIA ARTIFICIAL ✦ VISIÓN COMPUTACIONAL ✦ SISTEMAS DE GESTIÓN ✦ EXPERIENCIAS WEB ✦ TELEMETRÍA ✦ AUTOMATIZACIÓN ✦&nbsp;</span>
+        <span data-i18n="mq.text">INTELIGENCIA ARTIFICIAL ✦ VISIÓN COMPUTACIONAL ✦ SISTEMAS DE GESTIÓN ✦ EXPERIENCIAS WEB ✦ TELEMETRÍA ✦ AUTOMATIZACIÓN ✦&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- ============ SISTEMA SOLAR CALFERS (3D, scroll-dive) ============ -->
+    <section class="solar" id="solar">
+      <div class="solar__stage">
+        <canvas id="solarCanvas" class="solar__canvas"></canvas>
+        <div class="solar__hud">
+          <span class="section__index mono solar__index" data-i18n="sec.capsIndex">02 / ARSENAL</span>
+          <span class="solar__hint mono" data-i18n="solar.hint">Sistema CALFERS · arrastra para girar · toca un planeta · baja para sumergirte</span>
+        </div>
+        <div class="solar__panel" id="solarPanel" hidden>
+          <button class="solar__panel-x" id="solarPanelX" type="button" aria-label="Cerrar">✕</button>
+          <span class="solar__panel-tag mono" id="solarPanelTag" data-i18n="solar.tag">TECNOLOGÍA</span>
+          <h3 class="solar__panel-name" id="solarPanelName"></h3>
+          <p class="solar__panel-desc" id="solarPanelDesc"></p>
+          <div class="solar__panel-proj">
+            <span class="solar__panel-proj-k mono" id="solarPanelProjK" data-i18n="solar.proj">PROYECTOS</span>
+            <span class="solar__panel-proj-v" id="solarPanelProj"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- franja divisoria -->
+    <div class="marquee marquee--alt" aria-hidden="true">
+      <div class="marquee__track">
+        <span data-i18n="mq.text">INTELIGENCIA ARTIFICIAL ✦ VISIÓN COMPUTACIONAL ✦ SISTEMAS DE GESTIÓN ✦ EXPERIENCIAS WEB ✦ TELEMETRÍA ✦ AUTOMATIZACIÓN ✦&nbsp;</span>
+        <span data-i18n="mq.text">INTELIGENCIA ARTIFICIAL ✦ VISIÓN COMPUTACIONAL ✦ SISTEMAS DE GESTIÓN ✦ EXPERIENCIAS WEB ✦ TELEMETRÍA ✦ AUTOMATIZACIÓN ✦&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- ============ PERFIL ============ -->
+    <section class="section section--light" id="perfil">
+      <canvas id="profileCanvas" class="profile__canvas"></canvas>
+      <div class="section__head">
+        <span class="section__index mono" data-i18n="sec.profIndex">03 / COMANDANTE</span>
+        <h2 class="section__title reveal">Benjamin<br /><em>Osses Bravo</em></h2>
+      </div>
+
+      <div class="profile2">
+        <!-- tira de especificaciones tipo HUD (line-art) -->
+        <div class="profile2__specs">
+          <div class="spec reveal">
+            <span class="spec__k mono" data-i18n="prof.kRole">ROL</span>
+            <span class="spec__v" data-i18n="prof.vRole">Desarrollador Full Stack</span>
+          </div>
+          <div class="spec reveal">
+            <span class="spec__k mono" data-i18n="prof.kEdu">CARRERA</span>
+            <span class="spec__v" data-i18n="prof.vEdu">Ing. en Informática · cursando</span>
+          </div>
+          <div class="spec reveal">
+            <span class="spec__k mono" data-i18n="prof.kLoc">BASE</span>
+            <span class="spec__v" data-i18n="prof.vLoc">Rancagua / Santiago, Chile</span>
+          </div>
+          <div class="spec spec--live reveal">
+            <span class="spec__k mono" data-i18n="prof.kStatus">ESTADO</span>
+            <span class="spec__v"><i class="blink">●</i> <span data-i18n="prof.vStatus">Disponible para proyectos</span></span>
+          </div>
+        </div>
+
+        <!-- bio editorial a dos columnas -->
+        <div class="profile2__bio">
+          <p class="reveal" data-i18n="prof.p1">
+            Soy <strong>desarrollador Full Stack</strong> y estudiante de Ingeniería
+            en Informática. He construido y puesto en producción sistemas de gestión
+            reales para los rubros educativo, veterinario y hotelero, trabajando de
+            forma autónoma desde la planificación hasta el despliegue.
+          </p>
+          <p class="reveal" data-i18n="prof.p2">
+            Mi stack principal es React, FastAPI y MongoDB, con despliegue continuo
+            en Netlify, Render y Vercel. Me enfoco en soluciones funcionales,
+            escalables y mantenibles, priorizando la experiencia de usuario y la
+            eficiencia operativa.
+          </p>
+        </div>
+
+        <!-- métricas grandes -->
+        <div class="profile2__stats">
+          <div class="stat reveal">
+            <strong><span data-counter="5">0</span>+</strong>
+            <span data-i18n="prof.s1">sistemas en producción</span>
+          </div>
+          <div class="stat reveal">
+            <strong><span data-counter="4">0</span></strong>
+            <span data-i18n="prof.s2">certificaciones</span>
+          </div>
+          <div class="stat reveal">
+            <strong><span data-counter="6">0</span></strong>
+            <span data-i18n="prof.s3">rubros · industrias</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- franja divisoria -->
+    <div class="marquee marquee--alt" aria-hidden="true">
+      <div class="marquee__track">
+        <span data-i18n="mq.text">INTELIGENCIA ARTIFICIAL ✦ VISIÓN COMPUTACIONAL ✦ SISTEMAS DE GESTIÓN ✦ EXPERIENCIAS WEB ✦ TELEMETRÍA ✦ AUTOMATIZACIÓN ✦&nbsp;</span>
+        <span data-i18n="mq.text">INTELIGENCIA ARTIFICIAL ✦ VISIÓN COMPUTACIONAL ✦ SISTEMAS DE GESTIÓN ✦ EXPERIENCIAS WEB ✦ TELEMETRÍA ✦ AUTOMATIZACIÓN ✦&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- ============ CONTACTO ============ -->
+    <section class="section section--dark contact" id="contacto">
+      <canvas id="contactCanvas" class="contact__canvas"></canvas>
+      <div class="contact__inner">
+        <span class="section__index mono" data-i18n="con.index">04 / TRANSMISIÓN</span>
+        <h2 class="contact__title reveal">
+          <span data-i18n="con.titlePre">¿Tienes una misión</span><br /><em data-scramble-hover data-i18n="con.titleEm">imposible?</em><span data-i18n="con.titlePost"></span>
+        </h2>
+        <p class="contact__lead reveal" data-i18n="con.lead">
+          Hablemos. CALFERS se especializa en los proyectos que otros
+          consideran demasiado complejos.
+        </p>
+        <a href="mailto:benjamin0osses@gmail.com" class="btn btn--solid btn--big reveal" data-magnetic>
+          <span data-i18n="con.btn">Abrir canal de comunicación</span> <span class="btn__arrow">→</span>
+        </a>
+        <div class="contact__channels reveal">
+          <a href="mailto:benjamin0osses@gmail.com" class="contact__channel mono" data-magnetic>
+            <span class="contact__channel-key">EMAIL</span>
+            benjamin0osses@gmail.com
+          </a>
+          <a href="tel:+56921884650" class="contact__channel mono" data-magnetic>
+            <span class="contact__channel-key">TEL</span>
+            +56 9 2188 4650
+          </a>
+          <a href="https://www.linkedin.com/in/benjamin-osses-bravo-163460388" target="_blank" rel="noopener" class="contact__channel mono" data-magnetic>
+            <span class="contact__channel-key">LINKEDIN</span>
+            /benjamin-osses-bravo
+          </a>
+        </div>
+        <div class="contact__stripe"><i></i><i></i><i></i></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__brand mono">CALFERS © 2026</div>
+    <div class="footer__credit mono">Benjamin Osses Bravo — <span data-i18n="foot.credit">Diseñado y construido a mano</span></div>
+    <div class="footer__sys mono"><span class="blink">▮</span> SYSTEM NOMINAL</div>
+  </footer>
+
+  <script src="js/main.js?v=22"></script>
+</body>
+</html>
