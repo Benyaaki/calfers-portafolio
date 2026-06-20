@@ -18,8 +18,8 @@
   --blue: #3a6298;
   --line-light: rgba(var(--canvas-neutral), 0.16);   /* líneas finas azuladas (line-art) */
   --line-dark: rgba(var(--text-rgb), 0.12);    /* líneas finas oscuras sobre claro */
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-mono: "DM Mono", "JetBrains Mono", monospace;
+  --font-display: "DM Mono", "Space Grotesk", monospace;
+  --font-mono: "DM Mono", "Space Grotesk", monospace;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* ===== Tokens de tema (claro por defecto) ===== */
@@ -272,7 +272,6 @@ body {
   transition: background 0.4s, transform 0.4s var(--ease-out), box-shadow 0.4s, width 0.4s var(--ease-out);
 }
 .nav.is-scrolled {
-  width: min(940px, calc(100% - 28px));
   background: rgba(var(--surface-rgb), 0.82);
   box-shadow:
     inset 0 1px 0 rgba(var(--surface-rgb), 0.8),
@@ -297,14 +296,14 @@ body {
 .nav__links {
   display: flex;
   align-items: center;
-  gap: clamp(16px, 3vw, 36px);
+  gap: clamp(12px, 2vw, 24px);
   margin-left: auto; /* agrupa los controles a la derecha */
 }
 .nav__links a {
   color: var(--text);
   text-decoration: none;
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   position: relative;
   padding: 4px 0;
@@ -332,6 +331,8 @@ body {
 .nav__cta {
   border: 1px solid var(--orange);
   padding: 9px 18px !important;
+  border-radius: 999px;
+  white-space: nowrap;
   transition: background 0.3s, color 0.3s;
 }
 .nav__cta:hover { background: var(--orange); color: var(--ink); }
@@ -343,7 +344,8 @@ body {
   gap: 5px;
   background: none;
   border: 1px solid var(--line-dark);
-  padding: 7px 11px;
+  padding: 7px 13px;
+  border-radius: 999px;
   margin-left: clamp(12px, 2vw, 22px);
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -363,7 +365,8 @@ body {
   justify-content: center;
   background: none;
   border: 1px solid var(--line-dark);
-  padding: 7px 9px;
+  padding: 8px 10px;
+  border-radius: 999px;
   margin-left: clamp(10px, 1.6vw, 16px);
   color: rgba(var(--text-rgb), 0.6);
   transition: border-color 0.3s, color 0.3s;
@@ -415,7 +418,7 @@ body {
   text-transform: uppercase;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 920px) {
   .nav__links { display: none; }
   .nav__burger { display: flex; }
   .nav__lang { margin-left: auto; }
