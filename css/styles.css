@@ -150,7 +150,7 @@ body {
 .warp__target {
   font-family: var(--font-display);
   font-size: clamp(2rem, 7vw, 5rem);
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--bone);
@@ -204,7 +204,7 @@ body {
 }
 .preloader__brand {
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.35em;
 }
 .preloader__stripe, .hero__stripe, .contact__stripe {
@@ -278,7 +278,7 @@ body {
     0 22px 50px -22px rgba(var(--text-rgb), 0.4);
 }
 .nav__logo {
-  font-weight: 700;
+  font-weight: 500;
   font-size: 1.15rem;
   letter-spacing: 0.3em;
   color: var(--text);
@@ -355,7 +355,7 @@ body {
 }
 .nav__lang:hover { border-color: var(--orange); }
 .nav__lang-opt { transition: color 0.3s; }
-.nav__lang-opt.is-active { color: var(--amber); font-weight: 600; }
+.nav__lang-opt.is-active { color: var(--amber); font-weight: 500; }
 .nav__lang-sep { opacity: 0.4; }
 
 /* toggle de tema claro / oscuro */
@@ -413,7 +413,7 @@ body {
   color: var(--bone);
   text-decoration: none;
   font-size: 2rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -480,7 +480,7 @@ body {
 }
 .hero__title {
   font-size: clamp(4rem, 16vw, 12.5rem);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 0.92;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -567,7 +567,7 @@ body {
 }
 .dive__msg h2 {
   font-size: clamp(2.6rem, 8vw, 6rem);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.0;
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -614,7 +614,7 @@ body {
   padding: 16px 30px;
   font-family: var(--font-display);
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   text-decoration: none;
@@ -668,7 +668,7 @@ body {
   display: flex;
   white-space: nowrap;
   animation: marquee 28s linear infinite;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 1rem;
   letter-spacing: 0.22em;
 }
@@ -711,7 +711,7 @@ body {
 }
 .section__title {
   font-size: clamp(2.6rem, 7vw, 5.5rem);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.02;
   text-transform: uppercase;
   letter-spacing: 0.01em;
@@ -851,7 +851,7 @@ body {
 }
 .project__name {
   font-size: clamp(1.6rem, 3.2vw, 2.4rem);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.1;
   text-transform: uppercase;
   margin: 14px 0 18px;
@@ -895,7 +895,7 @@ body {
 }
 .project__metrics strong {
   font-size: clamp(1.4rem, 2.6vw, 2rem);
-  font-weight: 700;
+  font-weight: 500;
   color: var(--red);
 }
 .project__metrics span {
@@ -966,7 +966,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: clamp(4rem, 20vw, 18rem);
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: transparent;
@@ -1016,7 +1016,7 @@ body {
 }
 .scene__name {
   font-size: clamp(1.9rem, 3.8vw, 3.1rem);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.05;
   text-transform: uppercase;
   color: var(--text);
@@ -1080,7 +1080,7 @@ body {
 }
 .scene__metrics strong {
   font-size: clamp(1.5rem, 2.8vw, 2.3rem);
-  font-weight: 700;
+  font-weight: 500;
   color: var(--red);
   text-shadow: 0 2px 16px rgba(var(--scrim-rgb), 0.95);
 }
@@ -1177,6 +1177,7 @@ body {
 }
 .cap h3 {
   font-size: 1.15rem;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: 12px;
@@ -1281,7 +1282,7 @@ body {
   margin-bottom: 14px;
 }
 .solar__panel-name {
-  font-size: 1.35rem; font-weight: 700; text-transform: uppercase;
+  font-size: 1.35rem; font-weight: 500; text-transform: uppercase;
   letter-spacing: 0.02em; color: var(--text); margin-bottom: 12px;
 }
 .solar__panel-desc {
@@ -1342,7 +1343,7 @@ body {
 }
 .spec:hover { transform: translateY(-4px); border-left-color: var(--amber); }
 .spec__k { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--navy); }
-.spec__v { font-size: 0.92rem; font-weight: 600; color: var(--text); }
+.spec__v { font-size: 0.92rem; font-weight: 500; color: var(--text); }
 .spec--live .spec__v i { color: var(--orange); font-size: 0.7em; margin-right: 5px; }
 
 .profile2__bio {
@@ -1357,7 +1358,7 @@ body {
   line-height: 1.75;
   color: rgba(var(--text-rgb), 0.82);
 }
-.profile2__bio strong { font-weight: 600; color: var(--text); }
+.profile2__bio strong { font-weight: 400; color: var(--text); }
 .profile2__stats {
   display: flex;
   gap: clamp(28px, 5vw, 70px);
@@ -1475,7 +1476,7 @@ body {
   color: rgba(var(--text-rgb), 0.78);
   margin-bottom: 24px;
 }
-.profile__text strong { font-weight: 600; color: var(--text); }
+.profile__text strong { font-weight: 400; color: var(--text); }
 .profile__stats {
   display: flex;
   gap: clamp(24px, 4vw, 56px);
@@ -1485,7 +1486,7 @@ body {
 .stat strong {
   display: block;
   font-size: clamp(2.2rem, 4.5vw, 3.4rem);
-  font-weight: 700;
+  font-weight: 500;
   color: var(--red);
   line-height: 1;
 }
@@ -1534,7 +1535,7 @@ body {
 }
 .contact__title {
   font-size: clamp(2.4rem, 7vw, 5.5rem);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.05;
   text-transform: uppercase;
 }
