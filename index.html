@@ -26,7 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
   <!-- aplica el tema guardado antes de pintar (evita parpadeo) -->
   <script>try{if(localStorage.getItem('calfer-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <link rel="stylesheet" href="css/styles.css?v=27" />
+  <link rel="stylesheet" href="css/styles.css?v=28" />
 </head>
 <body>
 
@@ -477,6 +477,45 @@
             <span data-i18n="prof.s3">rubros · industrias</span>
           </div>
         </div>
+
+        <!-- credenciales / certificaciones -->
+        <div class="certs">
+          <span class="certs__label mono" data-i18n="prof.certs">// CREDENCIALES</span>
+          <div class="certs__grid">
+            <article class="cert reveal" style="--a: var(--orange)">
+              <span class="cert__badge mono">TD</span>
+              <div class="cert__info">
+                <span class="cert__issuer mono">Talento Digital para Chile</span>
+                <h3 class="cert__name" data-i18n="cert1.n">Bootcamp Desarrollo de Aplicaciones Full Stack Python Trainee</h3>
+                <span class="cert__date mono">JUN 2026</span>
+              </div>
+            </article>
+            <article class="cert reveal" style="--a: var(--red)">
+              <span class="cert__badge mono">G</span>
+              <div class="cert__info">
+                <span class="cert__issuer mono">Google</span>
+                <h3 class="cert__name" data-i18n="cert2.n">Certificado profesional de Soporte de TI</h3>
+                <span class="cert__date mono">OCT 2025</span>
+              </div>
+            </article>
+            <article class="cert reveal" style="--a: var(--amber)">
+              <span class="cert__badge mono">S</span>
+              <div class="cert__info">
+                <span class="cert__issuer mono">Santander Open Academy</span>
+                <h3 class="cert__name" data-i18n="cert3.n">Desarrollo con Python</h3>
+                <span class="cert__date mono">SEPT 2025</span>
+              </div>
+            </article>
+            <article class="cert reveal" style="--a: var(--navy)">
+              <span class="cert__badge mono">BIG</span>
+              <div class="cert__info">
+                <span class="cert__issuer mono">BIG School</span>
+                <h3 class="cert__name" data-i18n="cert4.n">Desarrollo con IA</h3>
+                <span class="cert__date mono">OCT 2025</span>
+              </div>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -532,6 +571,6 @@
     <div class="footer__sys mono"><span class="blink">▮</span> SYSTEM NOMINAL</div>
   </footer>
 
-  <script src="js/main.js?v=27"></script>
+  <script src="js/main.js?v=28"></script>
 </body>
 </html>
