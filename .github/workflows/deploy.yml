@@ -13,7 +13,22 @@ jobs:
       - name: Descargar el repositorio
         uses: actions/checkout@v4
 
-      - name: Subir por FTP a public_html
+      # --- Compilar la landing del estudio (React/Vite) -> estudio-src/dist ---
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: estudio-src/package-lock.json
+
+      - name: Instalar y compilar el estudio
+        working-directory: estudio-src
+        run: |
+          npm ci
+          npm run build
+
+      # --- 1) Portafolio (raíz) -> public_html ---
+      - name: Subir portafolio por FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -22,7 +37,8 @@ jobs:
           # protocol: ftps  # si tu hosting exige FTP seguro, descomenta esta línea
           # La cuenta FTP "deploy" entra directo a public_html → desplegamos en la raíz:
           server-dir: ./
-          # No subir estos (son del proyecto, no del sitio):
+          # No subir estos (son del proyecto, no del sitio). Ojo: excluimos el
+          # código fuente del estudio; solo sube su build (paso 2).
           exclude: |
             **/.git*
             **/.git*/**
@@ -30,3 +46,14 @@ jobs:
             **/.claude/**
             **/README.md
             **/*.zip
+            **/estudio-src/**
+
+      # --- 2) Build del estudio -> public_html/servicios ---
+      - name: Subir estudio compilado a /servicios por FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./estudio-src/dist/
+          server-dir: ./servicios/

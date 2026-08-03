@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300..700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream-100 text-espresso font-sans antialiased overflow-x-hidden;
+    margin: 0;
+    background-image:
+      radial-gradient(at 15% 12%, rgba(199, 180, 240, 0.28) 0px, transparent 45%),
+      radial-gradient(at 85% 8%, rgba(234, 217, 201, 0.35) 0px, transparent 40%),
+      radial-gradient(at 75% 88%, rgba(168, 140, 230, 0.20) 0px, transparent 45%);
+    background-attachment: fixed;
+  }
+  ::selection {
+    @apply bg-lavender-300 text-cappuccino-600;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-br from-lavender-500 via-cappuccino-400 to-cappuccino-600 bg-clip-text text-transparent;
+  }
+  .glass {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+  }
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+  }
+  /* Subrayado editorial que crece al hover */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1.5px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-underline:hover {
+    background-size: 100% 1.5px;
+  }
+  .text-stroke {
+    -webkit-text-stroke: 1.5px #2a1e17;
+    color: transparent;
+  }
+}
+
+/* Entrada del panel de tabs (base opacity 1, así se ve aunque no anime) */
+@keyframes tabIn {
+  from {
+    opacity: 0.3;
+    transform: translateY(12px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-tabin {
+  animation: tabIn 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Cursor follower blob */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(139, 111, 224, 0.55);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s ease, height 0.25s ease, background 0.25s ease;
+  will-change: transform;
+}
+@media (hover: none) {
+  .cursor-dot {
+    display: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #fbf6f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #d8bca3;
+  border-radius: 999px;
+  border: 2px solid #fbf6f1;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c7b4f0;
+}

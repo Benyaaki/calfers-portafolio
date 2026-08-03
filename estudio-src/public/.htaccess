@@ -1,0 +1,10 @@
+# SPA fallback para /servicios: cualquier ruta que no sea un archivo real
+# se sirve con index.html (React Router se encarga del resto).
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /servicios/
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /servicios/index.html [L]
+</IfModule>

@@ -286,6 +286,15 @@ body {
   display: flex;
   align-items: center;
 }
+.nav__logo-mark {
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 0.55em;
+  flex: 0 0 auto;
+  background-color: currentColor; /* toma el color del texto -> se adapta al tema */
+  -webkit-mask: url("../logo-mark.png") center / contain no-repeat;
+  mask: url("../logo-mark.png") center / contain no-repeat;
+}
 .nav__logo-dot {
   width: 8px; height: 8px;
   background: var(--orange);
