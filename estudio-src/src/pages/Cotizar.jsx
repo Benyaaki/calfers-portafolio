@@ -41,7 +41,7 @@ export default function Cotizar() {
   const [alcance, setAlcance] = useState(alcances[1])
   const [plazo, setPlazo] = useState(plazos[1])
 
-  const mensaje = `Hola CALFERS 👋
+  const mensaje = `Hola CALFERS,
 
 Me gustaría cotizar un proyecto:
 

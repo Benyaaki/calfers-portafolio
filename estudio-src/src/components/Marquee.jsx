@@ -9,12 +9,21 @@ const words = [
 ]
 
 export default function Marquee() {
+  // Dos copias idénticas: la animación mueve -50% (exactamente una copia),
+  // así el loop es continuo. El espaciado va DENTRO de cada ítem (mx en el ✦)
+  // para que no haya un hueco extra en el punto de reinicio.
   const line = [...words, ...words]
   return (
-    <div className="relative border-y border-espresso/15 bg-white/25 py-5 backdrop-blur-[2px]">
-      <div className="flex w-max animate-marquee gap-10 whitespace-nowrap">
+    <div className="relative overflow-hidden py-12">
+      {/* Cinta ondulada (fondo con máscara de onda que se desplaza) */}
+      <div
+        className="marquee-wave absolute inset-x-0 top-1/2 h-24 -translate-y-1/2 bg-white/35 backdrop-blur-[2px]"
+        aria-hidden
+      />
+      {/* Palabras encima (sin ondear) */}
+      <div className="relative flex w-max animate-marquee items-center whitespace-nowrap">
         {line.map((w, i) => (
-          <span key={i} className="flex items-center gap-10">
+          <span key={i} className="flex items-center">
             <span
               className={
                 i % 2 === 0
@@ -24,7 +33,7 @@ export default function Marquee() {
             >
               {w}
             </span>
-            <span className="font-mono text-lg text-peach-500">✦</span>
+            <span className="mx-10 font-mono text-lg text-peach-500">✦</span>
           </span>
         ))}
       </div>

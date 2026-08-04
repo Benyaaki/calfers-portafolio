@@ -55,6 +55,26 @@
   }
 }
 
+/* La franja del marquee como cinta ondulada: máscara SVG con bordes en seno
+   que se desplaza para que la onda "viaje". */
+.marquee-wave {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20120%20100'%20preserveAspectRatio='none'%3E%3Cpath%20d='M0,30C30,13,90,47,120,30L120,70C90,87,30,53,0,70Z'%20fill='%23000'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20120%20100'%20preserveAspectRatio='none'%3E%3Cpath%20d='M0,30C30,13,90,47,120,30L120,70C90,87,30,53,0,70Z'%20fill='%23000'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+  -webkit-mask-size: 120px 100%;
+  mask-size: 120px 100%;
+  -webkit-mask-position: 0 center;
+  mask-position: 0 center;
+  animation: wavescroll 3s linear infinite;
+}
+@keyframes wavescroll {
+  to {
+    -webkit-mask-position: -120px center;
+    mask-position: -120px center;
+  }
+}
+
 /* Entrada del panel de tabs (base opacity 1, así se ve aunque no anime) */
 @keyframes tabIn {
   from {

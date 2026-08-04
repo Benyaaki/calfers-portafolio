@@ -1,10 +1,15 @@
-# SPA fallback para /servicios: cualquier ruta que no sea un archivo real
-# se sirve con index.html (React Router se encarga del resto).
+# La web comercial (SPA React) vive en la raíz de calfers.com.
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteBase /servicios/
+  RewriteBase /
+
+  # El antiguo /servicios ahora es la raíz -> redirige para no perder enlaces/SEO
+  RewriteRule ^servicios(/.*)?$ / [R=301,L]
+
+  # SPA fallback: si no es un archivo/carpeta real, sirve index.html
+  # (esto NO afecta a /portafolio, que es una carpeta real y se sirve tal cual)
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /servicios/index.html [L]
+  RewriteRule . /index.html [L]
 </IfModule>

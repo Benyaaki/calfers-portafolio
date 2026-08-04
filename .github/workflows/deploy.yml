@@ -13,7 +13,7 @@ jobs:
       - name: Descargar el repositorio
         uses: actions/checkout@v4
 
-      # --- Compilar la landing del estudio (React/Vite) -> estudio-src/dist ---
+      # --- Compilar la web comercial (React/Vite) -> estudio-src/dist ---
       - name: Configurar Node
         uses: actions/setup-node@v4
         with:
@@ -21,24 +21,31 @@ jobs:
           cache: npm
           cache-dependency-path: estudio-src/package-lock.json
 
-      - name: Instalar y compilar el estudio
+      - name: Instalar y compilar la web comercial
         working-directory: estudio-src
         run: |
           npm ci
           npm run build
 
-      # --- 1) Portafolio (raíz) -> public_html ---
+      # --- 1) Web comercial (build) -> public_html (RAÍZ = página principal) ---
+      - name: Subir web comercial (raíz) por FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./estudio-src/dist/
+          server-dir: ./
+
+      # --- 2) Portafolio (raíz del repo) -> public_html/portafolio ---
       - name: Subir portafolio por FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # protocol: ftps  # si tu hosting exige FTP seguro, descomenta esta línea
-          # La cuenta FTP "deploy" entra directo a public_html → desplegamos en la raíz:
-          server-dir: ./
-          # No subir estos (son del proyecto, no del sitio). Ojo: excluimos el
-          # código fuente del estudio; solo sube su build (paso 2).
+          server-dir: ./portafolio/
+          # No subir estos (son del proyecto o el código fuente de la comercial):
           exclude: |
             **/.git*
             **/.git*/**
@@ -47,13 +54,3 @@ jobs:
             **/README.md
             **/*.zip
             **/estudio-src/**
-
-      # --- 2) Build del estudio -> public_html/servicios ---
-      - name: Subir estudio compilado a /servicios por FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./estudio-src/dist/
-          server-dir: ./servicios/
