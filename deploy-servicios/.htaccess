@@ -1,0 +1,6 @@
+# La carpeta /servicios quedó obsoleta (la web comercial ahora vive en la raíz).
+# Todo lo que llegue aquí se redirige 301 a la raíz.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^ / [R=301,L]
+</IfModule>

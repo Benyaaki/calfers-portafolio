@@ -14,10 +14,10 @@ export default function Marquee() {
   // para que no haya un hueco extra en el punto de reinicio.
   const line = [...words, ...words]
   return (
-    <div className="relative overflow-hidden py-12">
+    <div className="relative overflow-hidden py-14">
       {/* Cinta ondulada (fondo con máscara de onda que se desplaza) */}
       <div
-        className="marquee-wave absolute inset-x-0 top-1/2 h-24 -translate-y-1/2 bg-white/35 backdrop-blur-[2px]"
+        className="marquee-wave absolute inset-x-0 top-1/2 h-32 -translate-y-1/2 bg-white/35 backdrop-blur-[2px]"
         aria-hidden
       />
       {/* Palabras encima (sin ondear) */}

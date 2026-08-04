@@ -21,6 +21,18 @@ export function WarpProvider({ children }) {
     return () => clearTimeout(id)
   }, [target])
 
+  // Si el usuario vuelve con el botón "atrás", el navegador restaura esta
+  // página desde el bfcache con el overlay aún activo, lo que re-disparaba la
+  // navegación (loop). Al restaurarse, limpiamos el destino para que se vea la
+  // web comercial normal.
+  useEffect(() => {
+    const onPageShow = (e) => {
+      if (e.persisted) setTarget(null)
+    }
+    window.addEventListener('pageshow', onPageShow)
+    return () => window.removeEventListener('pageshow', onPageShow)
+  }, [])
+
   return (
     <WarpContext.Provider value={warpTo}>
       {children}

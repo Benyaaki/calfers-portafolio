@@ -54,3 +54,15 @@ jobs:
             **/README.md
             **/*.zip
             **/estudio-src/**
+            **/deploy-servicios/**
+
+      # --- 3) Limpiar la carpeta huérfana /servicios y dejarla redirigiendo ---
+      - name: Limpiar y redirigir /servicios
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./deploy-servicios/
+          server-dir: ./servicios/
+          dangerous-clean-slate: true
