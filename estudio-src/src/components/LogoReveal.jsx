@@ -25,9 +25,13 @@ export default function LogoReveal() {
     offset: ['start start', 'end end'],
   })
 
+  // En móvil el logo protagónico se encima con el texto y no luce bien:
+  // omitimos la sección por completo (sin dejar hueco de scroll vacío).
+  if (!isDesktop) return null
+
   return (
-    <section ref={ref} className="relative h-[170vh] sm:h-[300vh]">
-      <Roller key={isDesktop ? 'd' : 'm'} progress={scrollYProgress} isDesktop={isDesktop} />
+    <section ref={ref} className="relative h-[300vh]">
+      <Roller progress={scrollYProgress} isDesktop={isDesktop} />
     </section>
   )
 }
