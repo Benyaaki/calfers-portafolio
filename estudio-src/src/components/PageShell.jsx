@@ -1,20 +1,17 @@
 import { motion } from 'framer-motion'
 
-// Envoltorio de transición entre páginas internas: entra con un leve
-// desenfoque + subida, sale hacia arriba. Da sensación de "salto" suave.
+// Envoltorio de transición entre páginas internas. Solo opacidad a propósito:
+// un `filter`/`transform` persistente en este contenedor rompería el
+// `position: sticky` de secciones internas (p. ej. el logo rodante).
 const variants = {
-  initial: { opacity: 0, y: 24, filter: 'blur(8px)' },
+  initial: { opacity: 0 },
   enter: {
     opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
   },
   exit: {
     opacity: 0,
-    y: -24,
-    filter: 'blur(8px)',
-    transition: { duration: 0.4, ease: [0.4, 0, 1, 1] },
+    transition: { duration: 0.3, ease: [0.4, 0, 1, 1] },
   },
 }
 

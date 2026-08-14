@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { waLink } from '../lib/config'
+import { Link } from 'react-router-dom'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -16,19 +16,19 @@ export default function Hero() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease, delay: 0.1 }}
-            className="block text-[clamp(3rem,12vw,10rem)]"
+            className="block text-[clamp(2.85rem,11.4vw,9.5rem)]"
           >
-            Tu idea,
+            Entender primero.
           </motion.span>
           <motion.span
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease, delay: 0.22 }}
-            className="block text-[clamp(3rem,12vw,10rem)]"
+            className="block text-[clamp(2.85rem,11.4vw,9.5rem)]"
           >
-            hecha{' '}
+            Construir{' '}
             <span className="font-serif font-normal italic text-gradient">
-              software
+              mejor
             </span>
             <span className="text-peach-500">.</span>
           </motion.span>
@@ -41,23 +41,22 @@ export default function Hero() {
           className="mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between"
         >
           <p className="max-w-md text-lg leading-relaxed text-espresso/70">
-            En <span className="font-semibold text-espresso">CALFERS</span> diseñamos y
-            construimos productos digitales a medida (webs, sistemas, e-commerce e IA)
-            que se sienten vivos.
+            En <span className="font-semibold text-espresso">CALFERS</span> diseñamos
+            software a medida: webs, sistemas, e-commerce e IA. Pero nunca empezamos
+            por ahí. Primero entendemos cómo trabaja tu equipo. El software viene
+            después.
           </p>
 
           <div className="flex items-center gap-4">
-            <a
-              href={waLink('Hola CALFERS, quiero cotizar un proyecto.')}
-              target="_blank"
-              rel="noopener"
+            <Link
+              to="/cotizar"
               className="group flex items-center gap-3 rounded-full bg-espresso px-8 py-4 text-base font-semibold text-cream-50 transition-transform hover:scale-105 active:scale-95"
             >
-              Cuéntanos tu idea
+              Conversemos
               <span className="grid h-6 w-6 place-items-center rounded-full bg-cream-50 text-espresso transition-transform group-hover:rotate-45">
                 ↗
               </span>
-            </a>
+            </Link>
           </div>
         </motion.div>
       </div>

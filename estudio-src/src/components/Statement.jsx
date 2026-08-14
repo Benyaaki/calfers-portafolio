@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
 const text =
-  'Construimos productos digitales que la gente quiere usar. Con criterio, con estética y con la ingeniería para que funcionen de verdad.'
+  'No empezamos escribiendo código. Empezamos escuchando. Entendemos el problema y, recién entonces, construimos la herramienta que lo resuelve.'
 const words = text.split(' ')
 
 function Word({ word, range, progress }) {
@@ -28,7 +28,7 @@ export default function Statement() {
         {words.map((w, i) => {
           const start = i / words.length
           const end = start + 1 / words.length
-          const emph = /software|estética|ingeniería|usar/i.test(w)
+          const emph = /escuchando|entendemos|resuelve/i.test(w)
           return (
             <span key={i} className={emph ? 'italic text-peach-500' : ''}>
               <Word word={w} progress={scrollYProgress} range={[start, end]} />

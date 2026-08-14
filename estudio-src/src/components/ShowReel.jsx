@@ -18,11 +18,8 @@ export default function ShowReel() {
   return (
     <section className="relative overflow-hidden py-16 sm:py-24">
       <div className="mb-10 px-6 text-center sm:mb-14">
-        <span className="font-mono text-xs uppercase tracking-[0.25em] text-peach-500">
-          (Lo que construimos)
-        </span>
-        <h2 className="mx-auto mt-4 max-w-xl font-display text-4xl font-medium leading-[0.95] tracking-tight text-espresso sm:text-6xl">
-          Sistemas que se <span className="font-serif italic">sienten vivos</span>
+        <h2 className="mx-auto max-w-xl font-display text-4xl font-medium leading-[0.95] tracking-tight text-espresso sm:text-6xl">
+          Herramientas para <span className="font-serif italic">problemas reales</span>
         </h2>
       </div>
 

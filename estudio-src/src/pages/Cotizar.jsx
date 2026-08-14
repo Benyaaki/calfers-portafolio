@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageShell from '../components/PageShell'
 import OrbitalCarousel from '../components/OrbitalCarousel'
-import { waLink } from '../lib/config'
+import { waLink, mailLink } from '../lib/config'
 
 const pasos = [
   { tag: 'Paso 01', title: 'Nos escribes', desc: 'Cuéntanos qué necesitas por WhatsApp o el formulario. Sin compromiso.' },
@@ -54,10 +54,7 @@ Me gustaría cotizar un proyecto:
   return (
     <PageShell>
       <section className="relative mx-auto max-w-7xl px-6 pt-36 sm:px-10">
-        <span className="font-mono text-xs uppercase tracking-[0.25em] text-peach-500">
-          (Cómo cotizamos)
-        </span>
-        <h1 className="mt-5 max-w-4xl font-display text-5xl font-medium leading-[0.95] tracking-tight text-espresso sm:text-8xl">
+        <h1 className="max-w-4xl font-display text-5xl font-medium leading-[0.95] tracking-tight text-espresso sm:text-8xl">
           Claro, rápido y <span className="font-serif italic text-gradient">sin letra chica</span>
         </h1>
         <p className="mt-7 max-w-xl text-lg leading-relaxed text-espresso/70">
@@ -106,6 +103,42 @@ Me gustaría cotizar un proyecto:
             Enviar por WhatsApp
             <span className="grid h-6 w-6 place-items-center rounded-full bg-cream-50 text-espresso transition-transform group-hover:rotate-45">↗</span>
           </a>
+        </div>
+
+        {/* Separador */}
+        <div className="mt-10 flex items-center gap-4">
+          <span className="h-px flex-1 bg-espresso/15" />
+          <span className="font-mono text-xs uppercase tracking-widest text-espresso/40">o</span>
+          <span className="h-px flex-1 bg-espresso/15" />
+        </div>
+
+        {/* Vía rápida: consulta directa, sin pasos */}
+        <div className="mt-10 rounded-5xl border border-espresso/15 bg-white/40 p-8 sm:p-10">
+          <h2 className="font-display text-2xl font-medium text-espresso sm:text-3xl">
+            ¿Tienes otra idea o solo una <span className="font-serif italic">consulta</span>?
+          </h2>
+          <p className="mt-3 max-w-xl text-espresso/70">
+            No necesitas llenar los pasos. Cuéntanos lo que tengas en mente y conversamos,
+            sin compromiso.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href={waLink('Hola CALFERS, tengo una consulta.')}
+              target="_blank"
+              rel="noopener"
+              className="group inline-flex items-center gap-2 rounded-full bg-espresso px-7 py-3.5 text-sm font-semibold text-cream-50 transition-transform hover:scale-105 active:scale-95"
+            >
+              Escribir por WhatsApp
+              <span className="grid h-5 w-5 place-items-center rounded-full bg-cream-50 text-espresso transition-transform group-hover:rotate-45">↗</span>
+            </a>
+            <a
+              href={mailLink('Consulta desde calfers.com')}
+              className="inline-flex items-center gap-2 rounded-full border border-espresso/25 px-7 py-3.5 text-sm font-semibold text-espresso transition-colors hover:bg-white/60"
+            >
+              Enviar un correo
+              <span className="text-espresso/50">↗</span>
+            </a>
+          </div>
         </div>
 
         <div className="mt-10 text-center">

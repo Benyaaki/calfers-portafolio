@@ -9,8 +9,14 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-cream-100 text-espresso font-sans antialiased overflow-x-hidden;
+    @apply bg-cream-100 text-espresso font-sans antialiased;
     margin: 0;
+    /* `overflow-x: clip` en vez de `hidden`: contiene el desborde horizontal
+       SIN convertir al body en contenedor de scroll. `overflow-x: hidden`
+       fuerza que `overflow-y` compute como `auto` (quirk de CSS), lo que hacía
+       que framer-motion (useScroll) enganchara sus listeners al body —que no
+       scrollea— y dejara congelado el `scrollYProgress` del logo rodante. */
+    overflow-x: clip;
     background-image:
       radial-gradient(at 15% 12%, rgba(199, 180, 240, 0.28) 0px, transparent 45%),
       radial-gradient(at 85% 8%, rgba(234, 217, 201, 0.35) 0px, transparent 40%),

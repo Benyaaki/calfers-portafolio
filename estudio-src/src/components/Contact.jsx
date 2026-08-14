@@ -99,10 +99,7 @@ export default function Contact() {
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
         >
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-peach-500">
-            (Hablemos)
-          </span>
-          <h2 className="mt-5 font-display text-5xl font-medium leading-[0.98] tracking-tight text-espresso sm:text-7xl">
+          <h2 className="font-display text-5xl font-medium leading-[0.98] tracking-tight text-espresso sm:text-7xl">
             Estamos a un
             <br />
             <span className="font-serif italic text-gradient">mensaje</span> de distancia

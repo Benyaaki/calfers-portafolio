@@ -22,10 +22,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-16 sm:px-10">
         <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
           <div>
-            <span className="font-mono text-xs uppercase tracking-[0.25em] text-peach-500">
-              (Construyamos algo)
-            </span>
-            <p className="mt-4 font-display text-4xl font-medium tracking-tight text-espresso sm:text-6xl">
+            <p className="font-display text-4xl font-medium tracking-tight text-espresso sm:text-6xl">
               ¿Tienes una idea?
               <br />
               <span className="font-serif italic text-gradient">Hagámosla real.</span>

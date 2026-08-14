@@ -7,6 +7,7 @@ import Statement from '../components/Statement'
 import Services from '../components/Services'
 import Process from '../components/Process'
 import ShowReel from '../components/ShowReel'
+import LogoReveal from '../components/LogoReveal'
 import WhyUs from '../components/WhyUs'
 import Contact from '../components/Contact'
 
@@ -32,6 +33,7 @@ export default function Landing() {
       <Services />
       <Process />
       <ShowReel />
+      <LogoReveal />
       <WhyUs />
       <Contact />
     </PageShell>
