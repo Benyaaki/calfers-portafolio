@@ -24,7 +24,12 @@ document.addEventListener("themechange", refreshThemeColors);
 /* ============ I18N (español / inglés) ============ */
 const LANG_KEY = "calfer-lang";
 let currentLang = (() => {
-  try { return localStorage.getItem(LANG_KEY) || "es"; } catch (e) { return "es"; }
+  try {
+    const queryLang = new URLSearchParams(window.location.search).get("lang");
+    if (queryLang === "es" || queryLang === "en") return queryLang;
+    const savedLang = localStorage.getItem(LANG_KEY);
+    return savedLang === "en" ? "en" : "es";
+  } catch (e) { return "es"; }
 })();
 
 const I18N = {
@@ -100,6 +105,7 @@ const I18N = {
     "con.lead": "Hablemos. CALFERS se especializa en los proyectos que otros consideran demasiado complejos.",
     "con.btn": "Abrir canal de comunicación",
     "con.cEmail": "Enviar correo", "con.cWa": "Enviar mensaje", "con.cLi": "Ver perfil",
+    "footer.status": "SISTEMA NOMINAL",
   },
   en: {
     title: "CALFERS — Computer Engineering · Benjamin Osses Bravo",
@@ -173,6 +179,7 @@ const I18N = {
     "con.lead": "Let's talk. CALFERS specializes in the projects others consider too complex.",
     "con.btn": "Open communication channel",
     "con.cEmail": "Send email", "con.cWa": "Send message", "con.cLi": "View profile",
+    "footer.status": "SYSTEM NOMINAL",
   },
 };
 
@@ -198,6 +205,9 @@ function t(key) {
       toggle.querySelectorAll(".nav__lang-opt").forEach((o) =>
         o.classList.toggle("is-active", o.dataset.lang === currentLang)
       );
+      const label = currentLang === "es" ? "Cambiar a inglés" : "Switch to Spanish";
+      toggle.setAttribute("aria-label", label);
+      toggle.setAttribute("title", label);
     }
     // avisar a otros módulos (warp, etc.) que el idioma cambió
     document.dispatchEvent(new CustomEvent("langchange", { detail: currentLang }));
@@ -207,6 +217,11 @@ function t(key) {
     if (lang !== "es" && lang !== "en") return;
     currentLang = lang;
     try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set("lang", lang);
+      window.history.replaceState({}, "", url);
+    } catch (e) {}
     apply();
   }
 

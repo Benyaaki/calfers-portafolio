@@ -24,8 +24,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
-  <!-- aplica el tema guardado antes de pintar (evita parpadeo) -->
-  <script>try{if(localStorage.getItem('calfer-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <!-- aplica preferencias guardadas antes de pintar (evita parpadeos de tema/idioma) -->
+  <script>try{if(localStorage.getItem('calfer-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');const q=new URLSearchParams(location.search).get('lang'),l=q==='en'||q==='es'?q:localStorage.getItem('calfer-lang');if(l==='en'||l==='es')document.documentElement.lang=l;}catch(e){}</script>
   <link rel="stylesheet" href="css/styles.css?v=29" />
 </head>
 <body>
@@ -58,10 +58,10 @@
       <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="currentColor"/></svg>
       <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6L19 19M19 5l-1.4 1.4M6.4 17.6L5 19" stroke-linecap="round"/></svg>
     </button>
-    <button class="nav__lang" id="langToggle" aria-label="Cambiar idioma / Switch language">
+    <button class="nav__lang" id="langToggle" type="button" aria-label="Cambiar a inglés" title="Cambiar a inglés">
       <span class="nav__lang-opt" data-lang="es">ES</span><span class="nav__lang-sep">/</span><span class="nav__lang-opt" data-lang="en">EN</span>
     </button>
-    <button class="nav__burger" id="burger" aria-label="Menú">
+    <button class="nav__burger" id="burger" type="button" aria-label="Menú">
       <span></span><span></span>
     </button>
   </header>
@@ -568,9 +568,9 @@
   <footer class="footer">
     <div class="footer__brand mono">CALFERS © 2026</div>
     <div class="footer__credit mono">Benjamin Osses Bravo</div>
-    <div class="footer__sys mono"><span class="blink">▮</span> SYSTEM NOMINAL</div>
+    <div class="footer__sys mono"><span class="blink">▮</span> <span data-i18n="footer.status">SISTEMA NOMINAL</span></div>
   </footer>
 
-  <script src="js/main.js?v=28"></script>
+  <script src="js/main.js?v=29"></script>
 </body>
 </html>
