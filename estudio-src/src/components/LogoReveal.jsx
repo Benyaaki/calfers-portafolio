@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { useLanguage } from '../lib/i18n'
 
 /**
  * LogoReveal — El logo CALFERS entra rodando desde la derecha A TAMAÑO GRANDE (126vh),
@@ -7,6 +8,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
  * y luego retoma y sale por la izquierda.
  */
 export default function LogoReveal() {
+  const { c } = useLanguage()
   const ref = useRef(null)
   const [isDesktop, setIsDesktop] = useState(
     () => (typeof window === 'undefined' ? true : window.matchMedia('(min-width: 640px)').matches),
@@ -31,12 +33,12 @@ export default function LogoReveal() {
 
   return (
     <section ref={ref} className="relative h-[300vh]">
-      <Roller progress={scrollYProgress} isDesktop={isDesktop} />
+      <Roller progress={scrollYProgress} isDesktop={isDesktop} copy={c.logo} />
     </section>
   )
 }
 
-function Roller({ progress, isDesktop }) {
+function Roller({ progress, isDesktop, copy }) {
   const [dims, setDims] = useState({ vw: 1200, vh: 800 })
 
   useEffect(() => {
@@ -126,12 +128,10 @@ function Roller({ progress, isDesktop }) {
       >
         <div className="w-full max-w-2xl px-6 text-center sm:mr-[14%] sm:w-[44%] sm:max-w-none sm:px-0 sm:text-left">
           <p className="font-display text-4xl font-medium leading-[1.05] tracking-tight text-espresso sm:text-6xl md:text-7xl">
-            No entregamos software. Entregamos una forma más
-            <span className="font-serif italic text-gradient"> simple de trabajar</span>.
+            {copy.a} <span className="font-serif italic text-gradient">{copy.b}</span>.
           </p>
         </div>
       </motion.div>
     </div>
   )
 }
-

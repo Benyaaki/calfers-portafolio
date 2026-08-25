@@ -1,4 +1,5 @@
 import CardFanCarousel from './CardFanCarousel'
+import { useLanguage } from '../lib/i18n'
 
 // Categorías de lo que construimos (no proyectos con nombre propio).
 const cards = [
@@ -15,16 +16,18 @@ const cards = [
 ]
 
 export default function ShowReel() {
+  const { c } = useLanguage()
+  const translatedCards = cards.map((card, i) => ({ ...card, tag: c.reel.cards[i][0], title: c.reel.cards[i][1], desc: c.reel.cards[i][2] }))
   return (
     <section className="relative overflow-hidden py-16 sm:py-24">
       <div className="mb-10 px-6 text-center sm:mb-14">
         <h2 className="mx-auto max-w-xl font-display text-4xl font-medium leading-[0.95] tracking-tight text-espresso sm:text-6xl">
-          Herramientas para <span className="font-serif italic">problemas reales</span>
+          {c.reel.titleA} <span className="font-serif italic">{c.reel.titleB}</span>
         </h2>
       </div>
 
       <div className="mx-auto max-w-6xl px-6">
-        <CardFanCarousel cards={cards} />
+        <CardFanCarousel cards={translatedCards} />
       </div>
     </section>
   )

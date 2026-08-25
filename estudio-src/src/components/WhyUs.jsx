@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useLanguage } from '../lib/i18n'
 
 const stats = [
   { k: '24/7', v: 'Sistemas operando en terreno, sin pausa' },
@@ -8,23 +9,24 @@ const stats = [
 ]
 
 export default function WhyUs() {
+  const { c } = useLanguage()
+  const translatedStats = stats.map((stat, i) => ({ ...stat, v: c.why.stats[i] }))
   return (
     <section id="portafolio" className="relative mx-auto max-w-7xl px-6 py-28 sm:px-10 sm:py-40">
       <div className="grid gap-14 lg:grid-cols-[1.2fr_1fr] lg:items-center">
         <div>
           <h2 className="font-display text-5xl font-medium leading-[0.98] tracking-tight text-espresso sm:text-7xl">
-            No prometemos.
+            {c.why.a}
             <br />
-            <span className="font-serif italic text-gradient">Preferimos mostrarte.</span>
+            <span className="font-serif italic text-gradient">{c.why.b}</span>
           </h2>
           <p className="mt-7 max-w-lg text-lg leading-relaxed text-espresso/70">
-            Detrás de CALFERS hay sistemas reales operando hoy en distintos rubros,
-            con la tecnología ajustada a la medida de cada uno.
+            {c.why.lead}
           </p>
         </div>
 
         <div className="flex flex-col divide-y divide-espresso/15 border-y border-espresso/15">
-          {stats.map((s, i) => (
+          {translatedStats.map((s, i) => (
             <motion.div
               key={s.v}
               initial={{ opacity: 0, x: 24 }}

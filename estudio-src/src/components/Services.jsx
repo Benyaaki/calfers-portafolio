@@ -1,36 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-
-const services = [
-  {
-    n: '01',
-    title: 'Software a medida',
-    word: 'a medida',
-    desc: 'Sistemas de gestión, plataformas internas y apps que se ajustan a cómo trabaja tu negocio. Nada de plantillas.',
-    tags: ['Plataformas', 'Dashboards', 'APIs'],
-  },
-  {
-    n: '02',
-    title: 'Páginas web & landings',
-    word: '& landings',
-    desc: 'Sitios que se ven increíbles, cargan rápido y convierten visitas en clientes. Diseño con carácter, no genérico.',
-    tags: ['Diseño', 'SEO', 'Responsive'],
-  },
-  {
-    n: '03',
-    title: 'E-commerce',
-    word: 'commerce',
-    desc: 'Tiendas online completas con catálogo, pagos y despacho. Vende 24/7 sin depender de intermediarios.',
-    tags: ['Pagos', 'Catálogo', 'Stock'],
-  },
-  {
-    n: '04',
-    title: 'IA & automatización',
-    word: 'automatización',
-    desc: 'Chatbots, visión computacional e integraciones que automatizan lo repetitivo, para que tu equipo se enfoque en lo que de verdad importa.',
-    tags: ['Visión', 'Asistentes IA', 'Integraciones'],
-  },
-]
+import { useLanguage } from '../lib/i18n'
 
 /* Ilustraciones line-art por servicio (elementos gráficos con propósito) */
 function ServiceGraphic({ n, className }) {
@@ -134,23 +104,24 @@ function ServiceGraphic({ n, className }) {
 
 export default function Services() {
   const [active, setActive] = useState(0)
+  const { c } = useLanguage()
+  const translatedServices = c.services.items.map((item, i) => ({ ...item, n: `0${i + 1}` }))
 
   return (
     <section id="servicios" className="relative mx-auto max-w-7xl px-6 py-28 sm:px-10 sm:py-40">
       <div className="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div>
           <h2 className="max-w-xl font-display text-4xl font-medium leading-tight tracking-tight text-espresso sm:text-6xl">
-            Cuatro formas de <span className="font-serif italic">construir</span> contigo
+            {c.services.titleA} <span className="font-serif italic">{c.services.titleB}</span> {c.services.titleC}
           </h2>
         </div>
         <p className="max-w-xs text-espresso/60">
-          Desde una landing hasta un sistema completo. Elige por dónde empezar; del
-          resto nos encargamos nosotros.
+          {c.services.lead}
         </p>
       </div>
 
       <div className="border-t border-espresso/15">
-        {services.map((s, i) => (
+        {translatedServices.map((s, i) => (
           <div
             key={s.n}
             onMouseEnter={() => setActive(i)}

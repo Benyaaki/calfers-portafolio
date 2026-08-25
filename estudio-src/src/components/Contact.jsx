@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { CONTACT, waLink, mailLink } from '../lib/config'
+import { useLanguage } from '../lib/i18n'
 
 function WhatsappIcon(props) {
   return (
@@ -43,7 +44,7 @@ const channels = [
   },
 ]
 
-function Panel({ ch }) {
+function Panel({ ch, labels }) {
   const [copied, setCopied] = useState(false)
   const doCopy = async () => {
     try {
@@ -80,7 +81,7 @@ function Panel({ ch }) {
           onClick={doCopy}
           className="rounded-full border border-white/60 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/15"
         >
-          {copied ? '¡Copiado! ✓' : 'Copiar'}
+          {copied ? labels.copied : labels.copy}
         </button>
       </div>
     </div>
@@ -89,6 +90,8 @@ function Panel({ ch }) {
 
 export default function Contact() {
   const [active, setActive] = useState(0)
+  const { c } = useLanguage()
+  const translatedChannels = channels.map((channel, i) => i === 0 ? { ...channel, sub: c.contact.fast, href: waLink(c.contact.waText), action: c.contact.chat } : { ...channel, sub: c.contact.anytime, href: mailLink(c.contact.mailSubject), action: c.contact.email })
 
   return (
     <section id="contacto" className="relative mx-auto max-w-7xl px-6 py-28 sm:px-10 sm:py-40">
@@ -100,20 +103,19 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="font-display text-5xl font-medium leading-[0.98] tracking-tight text-espresso sm:text-7xl">
-            Estamos a un
+            {c.contact.a}
             <br />
-            <span className="font-serif italic text-gradient">mensaje</span> de distancia
+            <span className="font-serif italic text-gradient">{c.contact.b}</span> {c.contact.c}
           </h2>
           <p className="mt-7 max-w-md text-lg leading-relaxed text-espresso/70">
-            Elige por dónde prefieres escribirnos. ¿Prefieres algo guiado? Arma tu
-            cotización en un par de clics.
+            {c.contact.lead}
           </p>
 
           <Link
             to="/cotizar"
             className="group mt-8 inline-flex items-center gap-3 rounded-full bg-espresso px-8 py-4 text-base font-semibold text-cream-50 transition-transform hover:scale-105 active:scale-95"
           >
-            Cotiza en 2 minutos
+            {c.contact.quote}
             <span className="grid h-6 w-6 place-items-center rounded-full bg-cream-50 text-espresso transition-transform group-hover:rotate-45">
               ↗
             </span>
@@ -129,7 +131,7 @@ export default function Contact() {
         >
           {/* Pestañas */}
           <div className="flex gap-2">
-            {channels.map((ch, i) => (
+            {translatedChannels.map((ch, i) => (
               <button
                 key={ch.key}
                 type="button"
@@ -148,7 +150,7 @@ export default function Contact() {
 
           {/* Panel (re-monta al cambiar de pestaña: resetea copiado + re-anima) */}
           <div className="mt-4">
-            <Panel key={active} ch={channels[active]} />
+            <Panel key={active} ch={translatedChannels[active]} labels={c.contact} />
           </div>
         </motion.div>
       </div>

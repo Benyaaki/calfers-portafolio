@@ -3,13 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CONTACT } from '../lib/config'
 import { useWarp } from '../lib/warp'
-
-const sections = [
-  { id: 'servicios', label: 'Servicios' },
-  { id: 'proceso', label: 'Proceso' },
-  { id: 'portafolio', label: 'Portafolio', warp: true },
-  { id: 'contacto', label: 'Contacto' },
-]
+import { useLanguage } from '../lib/i18n'
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
@@ -17,6 +11,11 @@ export default function Nav() {
   const location = useLocation()
   const navigate = useNavigate()
   const warpTo = useWarp()
+  const { lang, setLang, c } = useLanguage()
+  const sections = [
+    { id: 'servicios', label: c.nav.services }, { id: 'proceso', label: c.nav.process },
+    { id: 'portafolio', label: c.nav.portfolio, warp: true }, { id: 'contacto', label: c.nav.contact },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -45,7 +44,7 @@ export default function Nav() {
   const onNavClick = (l) => {
     if (l.warp) {
       setMenuOpen(false)
-      warpTo(CONTACT.portfolioUrl)
+      warpTo(`${CONTACT.portfolioUrl}?lang=${lang}`)
     } else {
       goSection(l.id)
     }
@@ -94,11 +93,14 @@ export default function Nav() {
         </ul>
 
         <div className="flex items-center gap-2">
+          <button type="button" onClick={() => setLang(lang === 'es' ? 'en' : 'es')} aria-label={lang === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish'} className="rounded-full border border-espresso/20 bg-white/40 px-3 py-2 font-mono text-xs font-semibold tracking-wider text-espresso transition-colors hover:bg-white/70">
+            <span className={lang === 'es' ? 'text-peach-500' : 'text-espresso/40'}>ES</span><span className="mx-1 text-espresso/25">/</span><span className={lang === 'en' ? 'text-peach-500' : 'text-espresso/40'}>EN</span>
+          </button>
           <Link
             to="/cotizar"
             className="group hidden items-center gap-2 rounded-full bg-gradient-to-br from-peach-400 to-peach-500 px-6 py-2.5 text-sm font-bold text-white shadow-[0_6px_24px_-4px_rgba(225,118,79,0.75)] ring-1 ring-peach-300/60 transition-all hover:scale-105 hover:shadow-[0_8px_30px_-2px_rgba(225,118,79,0.9)] active:scale-95 md:flex"
           >
-            Cotizar
+            {c.nav.quote}
             <span className="grid h-5 w-5 place-items-center rounded-full bg-white/25 text-xs transition-transform group-hover:rotate-45">
               ↗
             </span>
@@ -107,7 +109,7 @@ export default function Nav() {
           {/* Botón hamburguesa (solo móvil) */}
           <button
             type="button"
-            aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            aria-label={menuOpen ? c.nav.close : c.nav.open}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((v) => !v)}
             className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-espresso transition-colors hover:bg-white/50 md:hidden"
@@ -161,7 +163,7 @@ export default function Nav() {
                     onClick={() => setMenuOpen(false)}
                     className="flex w-full items-center justify-center gap-2 rounded-3xl bg-espresso px-5 py-4 font-display text-lg font-semibold text-cream-50"
                   >
-                    Cotiza tu proyecto
+                    {c.nav.quoteProject}
                     <span className="text-cream-50/70">↗</span>
                   </Link>
                 </li>

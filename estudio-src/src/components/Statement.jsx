@@ -1,9 +1,6 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-
-const text =
-  'No empezamos escribiendo código. Empezamos escuchando. Entendemos el problema y, recién entonces, construimos la herramienta que lo resuelve.'
-const words = text.split(' ')
+import { useLanguage } from '../lib/i18n'
 
 function Word({ word, range, progress }) {
   const opacity = useTransform(progress, range, [0.15, 1])
@@ -16,6 +13,8 @@ function Word({ word, range, progress }) {
 }
 
 export default function Statement() {
+  const { c, lang } = useLanguage()
+  const words = c.statement.split(' ')
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -28,7 +27,7 @@ export default function Statement() {
         {words.map((w, i) => {
           const start = i / words.length
           const end = start + 1 / words.length
-          const emph = /escuchando|entendemos|resuelve/i.test(w)
+          const emph = lang === 'en' ? /listening|understand|solves/i.test(w) : /escuchando|entendemos|resuelve/i.test(w)
           return (
             <span key={i} className={emph ? 'italic text-peach-500' : ''}>
               <Word word={w} progress={scrollYProgress} range={[start, end]} />

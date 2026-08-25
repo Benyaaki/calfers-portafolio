@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import PageShell from '../components/PageShell'
 import OrbitalCarousel from '../components/OrbitalCarousel'
 import { waLink, mailLink } from '../lib/config'
+import { useLanguage } from '../lib/i18n'
 
 const pasos = [
   { tag: 'Paso 01', title: 'Nos escribes', desc: 'Cuéntanos qué necesitas por WhatsApp o el formulario. Sin compromiso.' },
@@ -11,20 +12,16 @@ const pasos = [
   { tag: 'Paso 04', title: 'Arrancamos', desc: 'Aprobada la propuesta, empezamos y ves avances desde la primera semana.' },
 ]
 
-const tipos = ['Página web / landing', 'Software a medida', 'E-commerce', 'IA / automatización']
-const alcances = ['Algo pequeño y rápido', 'Un proyecto mediano', 'Un sistema completo']
-const plazos = ['Lo antes posible', 'En 1–2 meses', 'Tengo flexibilidad de fechas']
-
 function Choice({ options, value, onChange }) {
   return (
     <div className="flex flex-wrap gap-2">
-      {options.map((o) => (
+      {options.map((o, i) => (
         <button
           key={o}
           type="button"
-          onClick={() => onChange(o)}
+          onClick={() => onChange(i)}
           className={`rounded-full border px-4 py-2.5 text-sm font-medium transition-all ${
-            value === o
+            value === i
               ? 'border-espresso bg-espresso text-cream-50'
               : 'border-espresso/20 bg-white/40 text-espresso/70 hover:border-espresso/40'
           }`}
@@ -37,17 +34,28 @@ function Choice({ options, value, onChange }) {
 }
 
 export default function Cotizar() {
-  const [tipo, setTipo] = useState(tipos[0])
-  const [alcance, setAlcance] = useState(alcances[1])
-  const [plazo, setPlazo] = useState(plazos[1])
+  const [tipo, setTipo] = useState(0)
+  const [alcance, setAlcance] = useState(1)
+  const [plazo, setPlazo] = useState(1)
+  const { c, lang } = useLanguage()
+  const q = c.quote
+  const pasosTraducidos = pasos.map((step, i) => ({ ...step, tag: q.steps[i][0], title: q.steps[i][1], desc: q.steps[i][2] }))
 
-  const mensaje = `Hola CALFERS,
+  const mensaje = lang === 'en' ? `Hi CALFERS,
+
+I would like to request a project quote:
+
+▸ Type: ${q.types[tipo]}
+▸ Scope: ${q.scopes[alcance]}
+▸ Timeline: ${q.times[plazo]}
+
+Can we discuss the details? Thank you!` : `Hola CALFERS,
 
 Me gustaría cotizar un proyecto:
 
-▸ Tipo: ${tipo}
-▸ Alcance: ${alcance}
-▸ Plazo: ${plazo}
+▸ Tipo: ${q.types[tipo]}
+▸ Alcance: ${q.scopes[alcance]}
+▸ Plazo: ${q.times[plazo]}
 
 ¿Podemos conversar los detalles? Quedo atento/a. ¡Gracias!`
 
@@ -55,42 +63,41 @@ Me gustaría cotizar un proyecto:
     <PageShell>
       <section className="relative mx-auto max-w-7xl px-6 pt-36 sm:px-10">
         <h1 className="max-w-4xl font-display text-5xl font-medium leading-[0.95] tracking-tight text-espresso sm:text-8xl">
-          Claro, rápido y <span className="font-serif italic text-gradient">sin letra chica</span>
+          {q.heroA} <span className="font-serif italic text-gradient">{q.heroB}</span>
         </h1>
         <p className="mt-7 max-w-xl text-lg leading-relaxed text-espresso/70">
-          Cotizar con nosotros es una conversación, no un formulario eterno. Así funciona,
-          y al final armas tu mensaje en un par de clics.
+          {q.lead}
         </p>
       </section>
 
       {/* Cómo se cotiza: carrusel orbital de pasos */}
       <section className="mx-auto max-w-6xl px-6 py-20 sm:px-10">
-        <OrbitalCarousel items={pasos} />
+        <OrbitalCarousel items={pasosTraducidos} />
       </section>
 
       {/* Armador interactivo */}
       <section className="mx-auto max-w-4xl px-6 pb-32 sm:px-10">
         <div className="glass-strong rounded-5xl p-8 shadow-soft sm:p-12">
           <h2 className="font-display text-3xl font-medium text-espresso sm:text-4xl">
-            Arma tu <span className="font-serif italic">cotización</span> en 3 pasos
+            {q.buildA} <span className="font-serif italic">{q.buildB}</span> {q.buildC}
           </h2>
           <div className="mt-10 space-y-9">
             <div>
-              <p className="mb-3 font-mono text-xs uppercase tracking-widest text-espresso/50">1 · ¿Qué necesitas?</p>
-              <Choice options={tipos} value={tipo} onChange={setTipo} />
+              <p className="mb-3 font-mono text-xs uppercase tracking-widest text-espresso/50">{q.questions[0]}</p>
+              <Choice options={q.types} value={tipo} onChange={setTipo} />
             </div>
             <div>
-              <p className="mb-3 font-mono text-xs uppercase tracking-widest text-espresso/50">2 · ¿Qué tamaño?</p>
-              <Choice options={alcances} value={alcance} onChange={setAlcance} />
+              <p className="mb-3 font-mono text-xs uppercase tracking-widest text-espresso/50">{q.questions[1]}</p>
+              <Choice options={q.scopes} value={alcance} onChange={setAlcance} />
             </div>
             <div>
-              <p className="mb-3 font-mono text-xs uppercase tracking-widest text-espresso/50">3 · ¿Para cuándo?</p>
-              <Choice options={plazos} value={plazo} onChange={setPlazo} />
+              <p className="mb-3 font-mono text-xs uppercase tracking-widest text-espresso/50">{q.questions[2]}</p>
+              <Choice options={q.times} value={plazo} onChange={setPlazo} />
             </div>
           </div>
 
           <div className="mt-10 rounded-3xl border border-espresso/15 bg-white/50 p-5">
-            <p className="font-mono text-xs uppercase tracking-widest text-espresso/40">Tu mensaje</p>
+            <p className="font-mono text-xs uppercase tracking-widest text-espresso/40">{q.yourMessage}</p>
             <p className="mt-2 whitespace-pre-line text-espresso/80">{mensaje}</p>
           </div>
 
@@ -100,7 +107,7 @@ Me gustaría cotizar un proyecto:
             rel="noopener"
             className="group mt-6 inline-flex w-full items-center justify-center gap-3 rounded-full bg-espresso px-8 py-4 text-base font-semibold text-cream-50 transition-transform hover:scale-[1.02] active:scale-95"
           >
-            Enviar por WhatsApp
+            {q.send}
             <span className="grid h-6 w-6 place-items-center rounded-full bg-cream-50 text-espresso transition-transform group-hover:rotate-45">↗</span>
           </a>
         </div>
@@ -108,34 +115,33 @@ Me gustaría cotizar un proyecto:
         {/* Separador */}
         <div className="mt-10 flex items-center gap-4">
           <span className="h-px flex-1 bg-espresso/15" />
-          <span className="font-mono text-xs uppercase tracking-widest text-espresso/40">o</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-espresso/40">{q.or}</span>
           <span className="h-px flex-1 bg-espresso/15" />
         </div>
 
         {/* Vía rápida: consulta directa, sin pasos */}
         <div className="mt-10 rounded-5xl border border-espresso/15 bg-white/40 p-8 sm:p-10">
           <h2 className="font-display text-2xl font-medium text-espresso sm:text-3xl">
-            ¿Tienes otra idea o solo una <span className="font-serif italic">consulta</span>?
+            {q.otherA} <span className="font-serif italic">{q.otherB}</span>?
           </h2>
           <p className="mt-3 max-w-xl text-espresso/70">
-            No necesitas llenar los pasos. Cuéntanos lo que tengas en mente y conversamos,
-            sin compromiso.
+            {q.otherLead}
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <a
-              href={waLink('Hola CALFERS, tengo una consulta.')}
+              href={waLink(q.directWa)}
               target="_blank"
               rel="noopener"
               className="group inline-flex items-center gap-2 rounded-full bg-espresso px-7 py-3.5 text-sm font-semibold text-cream-50 transition-transform hover:scale-105 active:scale-95"
             >
-              Escribir por WhatsApp
+              {q.wa}
               <span className="grid h-5 w-5 place-items-center rounded-full bg-cream-50 text-espresso transition-transform group-hover:rotate-45">↗</span>
             </a>
             <a
-              href={mailLink('Consulta desde calfers.com')}
+              href={mailLink(q.mailSubject)}
               className="inline-flex items-center gap-2 rounded-full border border-espresso/25 px-7 py-3.5 text-sm font-semibold text-espresso transition-colors hover:bg-white/60"
             >
-              Enviar un correo
+              {q.email}
               <span className="text-espresso/50">↗</span>
             </a>
           </div>
@@ -143,7 +149,7 @@ Me gustaría cotizar un proyecto:
 
         <div className="mt-10 text-center">
           <Link to="/" className="link-underline font-display text-lg font-medium text-espresso/70 hover:text-espresso">
-            ← Volver a la landing
+            {q.back}
           </Link>
         </div>
       </section>

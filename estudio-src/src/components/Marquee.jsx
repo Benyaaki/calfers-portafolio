@@ -1,18 +1,11 @@
-const words = [
-  'Software a medida',
-  'Páginas web',
-  'E-commerce',
-  'Inteligencia artificial',
-  'Apps de gestión',
-  'Automatización',
-  'Visión computacional',
-]
+import { useLanguage } from '../lib/i18n'
 
 export default function Marquee() {
+  const { c } = useLanguage()
   // Dos copias idénticas: la animación mueve -50% (exactamente una copia),
   // así el loop es continuo. El espaciado va DENTRO de cada ítem (mx en el ✦)
   // para que no haya un hueco extra en el punto de reinicio.
-  const line = [...words, ...words]
+  const line = [...c.marquee, ...c.marquee]
   return (
     <div className="relative mt-12 overflow-hidden py-14 sm:mt-16">
       {/* Cinta ondulada (fondo con máscara de onda que se desplaza) */}

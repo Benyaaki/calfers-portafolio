@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { useLanguage } from '../lib/i18n'
 
 const steps = [
   {
@@ -61,6 +62,8 @@ function Step({ step }) {
 }
 
 export default function Process() {
+  const { c } = useLanguage()
+  const translatedSteps = steps.map((step, i) => ({ ...step, title: c.process.steps[i][0], desc: c.process.steps[i][1] }))
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -72,7 +75,7 @@ export default function Process() {
     <section id="proceso" ref={ref} className="relative mx-auto max-w-3xl px-6 py-28 sm:py-40">
       <div className="mb-16 text-center">
         <h2 className="mx-auto max-w-2xl font-display text-4xl font-medium leading-tight tracking-tight text-espresso sm:text-6xl">
-          Un proceso <span className="font-serif italic">simple</span>, sin cajas negras
+          {c.process.titleA} <span className="font-serif italic">{c.process.titleB}</span> {c.process.titleC}
         </h2>
       </div>
 
@@ -86,7 +89,7 @@ export default function Process() {
         </div>
 
         <div className="flex flex-col gap-14 sm:gap-20">
-          {steps.map((s) => (
+          {translatedSteps.map((s) => (
             <Step key={s.n} step={s} />
           ))}
         </div>
